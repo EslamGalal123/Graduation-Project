@@ -6,6 +6,8 @@ import 'package:diiabest/feature/auth/auth_cubit/auth_cubit.dart';
 import 'package:diiabest/feature/doctor/presentation/views/profile_doctor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 class SignInView extends StatelessWidget {
   const SignInView({super.key});
 
@@ -38,13 +40,14 @@ class SignInView extends StatelessWidget {
       },
       child: Scaffold(
         body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          padding: EdgeInsets.symmetric(horizontal: 8.w),
           child: SafeArea(
             child: CustomScrollView(
-                physics: const BouncingScrollPhysics(),
-                slivers: [
-                  SliverToBoxAdapter(child: CustomSignInForm()),
-                ]),
+              physics: const BouncingScrollPhysics(),
+              slivers: [
+                SliverToBoxAdapter(child: CustomSignInForm()),
+              ],
+            ),
           ),
         ),
       ),

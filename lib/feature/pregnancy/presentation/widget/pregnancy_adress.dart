@@ -1,46 +1,70 @@
 import 'package:diiabest/core/Utils/App-Assets.dart';
+import 'package:diiabest/core/Utils/App-TextStyles.dart';
 import 'package:flutter/material.dart';
-// ignore: must_be_immutable
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 class PregnancyAdress extends StatelessWidget {
-   PregnancyAdress({super.key,required this.text});
-String? text;
+  final String text;
+
+  const PregnancyAdress({Key? key, required this.text}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    return Text(text!,style: Theme.of(context).textTheme.bodyMedium,);
+
+    return Text(
+      text,
+      style:CustomTextStyles.lohit500style18.copyWith(
+            fontSize: 20.sp, // Utilize screen util for font size
+          ),
+    );
   }
 }
 
 class IfYes extends StatelessWidget {
-  const IfYes({super.key});
+  const IfYes({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return const Row(
+
+    return Row(
       children: [
-        SizedBox(width: 40,),
-         Text("If yes , you should",style: TextStyle(fontWeight: FontWeight.w400,fontSize: 24,color: Color.fromARGB(172, 43, 111, 213),),textAlign: TextAlign.start,),
+        SizedBox(width: 40.w), // Utilize screen util for width
+        Text(
+          "If yes, you should",
+          style: TextStyle(
+            fontWeight: FontWeight.w400,
+            fontSize: 24.sp, // Utilize screen util for font size
+            color: Color.fromARGB(172, 43, 111, 213),
+          ),
+          textAlign: TextAlign.start,
+        ),
       ],
     );
   }
 }
 
-// ignore: must_be_immutable
 class AddressPregnancy extends StatelessWidget {
-  AddressPregnancy({super.key,required this.text});
-String? text;
+  final String text;
+
+  const AddressPregnancy({Key? key, required this.text}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
+
     return Row(
-          children: [
-            Image.asset(
-              Assets.hand,
-              width: 50,
-            ),
-            Text(
-              text!,
-              style: Theme.of(context).textTheme.bodyMedium,
-            )
-          ],
-        );
+      children: [
+        Image.asset(
+          Assets.hand,
+          width: 50.w, // Utilize screen util for width
+        ),
+        SizedBox(width: 10.w), // Utilize screen util for spacing
+        Text(
+          text,
+          style: CustomTextStyles.lohit400style20.copyWith(
+            fontSize: 16.sp, // Utilize screen util for font size
+          ),
+        ),
+      ],
+    );
   }
 }

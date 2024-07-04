@@ -1,4 +1,5 @@
 
+import 'package:diiabest/core/Utils/App-TextStyles.dart';
 import 'package:flutter/material.dart';
 
 class CustomNavBar extends StatelessWidget {
@@ -14,7 +15,7 @@ class CustomNavBar extends StatelessWidget {
         onTap: onTap,
         child: Text("Skip",
           // Applocalizations.of(context)!.translatetext("skip"),
-          style: Theme.of(context).textTheme.titleMedium
+          style: CustomTextStyles.lohit500style20
           
         ),
       ),

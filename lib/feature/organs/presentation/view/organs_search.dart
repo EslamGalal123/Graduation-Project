@@ -1,24 +1,28 @@
+import 'package:diiabest/core/Utils/App-TextStyles.dart';
 import 'package:diiabest/feature/organs/presentation/widget/eyes_view.dart';
 import 'package:diiabest/feature/organs/presentation/widget/foot_view.dart';
 import 'package:diiabest/feature/organs/presentation/widget/heart_view.dart';
 import 'package:diiabest/feature/organs/presentation/widget/skin_view.dart';
 import 'package:diiabest/feature/organs/presentation/widget/teeth_view.dart';
 import 'package:flutter/material.dart';
-class organsView extends StatefulWidget {
-  const organsView({super.key});
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+class OrgansView extends StatefulWidget {
+  const OrgansView({super.key});
 
   @override
-  State<organsView> createState() => _organsViewState();
+  State<OrgansView> createState() => _OrgansViewState();
 }
-class _organsViewState extends State<organsView> {
+
+class _OrgansViewState extends State<OrgansView> {
   static String searchQuery = '';
   List<Map<String, dynamic>> getFilteredItems() {
     return [
-      {'title': 'Teeth', 'value': 1, 'page': const TeethView()},
-      {'title': 'Skin', 'value': 2, 'page': const SkinView()},
-      {'title': 'Foot', 'value': 3, 'page': const FootView()},
-      {'title': 'Eyes', 'value': 6, 'page': const EyesView()},
-      {'title': 'Heart', 'value': 11, 'page': const HeartView()},
+       {'title': 'Foot', 'value': 3, 'page': FootView()},
+      {'title': 'Teeth', 'value': 1, 'page': TeethView()},
+      {'title': 'Skin', 'value': 2, 'page':  SkinView()},
+     
+      {'title': 'Eyes', 'value': 6, 'page':  EyesView()},
     ].where((item) {
       final title = item['title'] as String;
       return title.toLowerCase().contains(searchQuery.toLowerCase());
@@ -40,44 +44,42 @@ class _organsViewState extends State<organsView> {
     return Scaffold(
       body: SafeArea(
         child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          padding: EdgeInsets.symmetric(horizontal: 16.w),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(
-                height: 25,
-              ),
+              SizedBox(height: 25.h),
               Text(
                 "Select the affected Organ",
-                style: Theme.of(context).textTheme.titleMedium,
+                style: CustomTextStyles.lohit500style20.copyWith(
+            fontSize: 20.sp, // Utilize screen util for font size
+          ),
               ),
-              const SizedBox(
-                height: 20,
-              ),
+              SizedBox(height: 20.h),
               TextField(
-                decoration:  InputDecoration(
-                    hintText: 'Search', prefixIcon: const Icon(Icons.search),
-                     border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10.0),
-                borderSide:const BorderSide(color: Colors.grey, width: 2.0),
-              ),
-                  contentPadding:const EdgeInsets.symmetric(vertical: 10, horizontal: 10), // تحديد المسافة الداخلية
-),
+                decoration: InputDecoration(
+                  hintText: 'Search',
+                  hintStyle: CustomTextStyles.lohit400style18,
+                  prefixIcon: const Icon(Icons.search),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                    borderSide: const BorderSide(color: Colors.grey, width: 2.0),
+                  ),
+                  contentPadding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 10.w),
+                ),
                 onChanged: (value) {
                   setState(() {
                     searchQuery = value;
                   });
                 },
               ),
-              const SizedBox(
-                height: 20,
-              ),
+              SizedBox(height: 20.h),
               Column(
                 children: filteredItems.map((item) {
                   return RadioListTile(
                     title: Text(
                       item['title'] as String,
-                      style:Theme.of(context).textTheme.bodyMedium,
+                      style: CustomTextStyles.lohit500style18,
                     ),
                     value: item['value'],
                     groupValue: organ,

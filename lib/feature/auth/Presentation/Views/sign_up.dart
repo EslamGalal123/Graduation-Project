@@ -6,6 +6,8 @@ import 'package:diiabest/feature/auth/Presentation/widgets/have_an_account_widge
 import 'package:diiabest/feature/auth/auth_cubit/auth_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 class SignUpView extends StatelessWidget {
   const SignUpView({super.key});
 
@@ -17,22 +19,30 @@ class SignUpView extends StatelessWidget {
         key: BlocProvider.of<AuthCubit>(context).signupFormKey,
         child: SafeArea(
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            padding: EdgeInsets.symmetric(horizontal: 8.w),
             child: CustomScrollView(
               physics: const BouncingScrollPhysics(),
               slivers: [
-                SliverToBoxAdapter(child: Image.asset(Assets.imagesImageSigin)),
-                SliverToBoxAdapter(child: SizedBox(height: height * 0.02)),
-                const SliverToBoxAdapter(child: CustomSignUpForm()),
-                SliverToBoxAdapter(child: SizedBox(height: height * 0.01)),
+                SliverToBoxAdapter(
+                  child: Image.asset(
+                    Assets.imagesImageSigin,
+                    height: 0.4.sh,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                SliverToBoxAdapter(
+                  child: SizedBox(height: 0.02.sh),
+                ),
+                const SliverToBoxAdapter(
+                  child: CustomSignUpForm(),
+                ),
+                SliverToBoxAdapter(
+                  child: SizedBox(height: 0.01.sh),
+                ),
                 SliverToBoxAdapter(
                   child: HaveAnAccountWidget(
                     text1: AppStrings.alreadyHaveAnAccount,
-                    // Applocalizations.of(context)!.translatetext("alreadyHaveAnAccount"
-                    // ),
-        
                     text2: AppStrings.signIn,
-                    // Applocalizations.of(context)!.translatetext("signIn"),
                     onTap: () {
                       Navigator.push(
                         context,
@@ -40,12 +50,11 @@ class SignUpView extends StatelessWidget {
                           builder: (context) => const SignInView(),
                         ),
                       );
-                      // customNavigate(context, "/signIn");
                     },
                   ),
                 ),
                 SliverToBoxAdapter(
-                  child: SizedBox(height: height * 0.01),
+                  child: SizedBox(height: 0.01.sh),
                 ),
               ],
             ),

@@ -5,8 +5,10 @@ import 'package:diiabest/feature/pregnancy/presentation/widget/information.dart'
 import 'package:diiabest/feature/pregnancy/presentation/widget/low_blood_suger.dart';
 import 'package:diiabest/feature/pregnancy/presentation/widget/pregnancy_adress.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart'; // استيراد flutter_screenutil
+
 class CustomPregnancyForm extends StatefulWidget {
-  const CustomPregnancyForm({super.key});
+  const CustomPregnancyForm({Key? key}) : super(key: key);
 
   @override
   State<CustomPregnancyForm> createState() => _CustomPregnancyFormState();
@@ -19,18 +21,19 @@ class _CustomPregnancyFormState extends State<CustomPregnancyForm> {
 
   @override
   Widget build(BuildContext context) {
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const SizedBox(
-          height: 10,
+        SizedBox(
+          height: ScreenUtil().setHeight(10), // استخدام ScreenUtil لتعيين ارتفاع العنصر
         ),
         Text(
           "Pregnancy",
-          style: CustomTextStyles.lohit500style24deed,
+          style: CustomTextStyles.lohit500style20
         ),
-        const SizedBox(
-          height: 15,
+        SizedBox(
+          height: ScreenUtil().setHeight(15),
         ),
         PregnancyAdress(text: "Blood Suger Level"),
         Row(
@@ -41,7 +44,7 @@ class _CustomPregnancyFormState extends State<CustomPregnancyForm> {
                 setState(() {
                   isCheckedList[0] = value ?? false;
                   isCheckedList[1] = !isCheckedList[0];
-                  if (isCheckedList[0] = true) {
+                  if (isCheckedList[0]) {
                     showField1 = true;
                     showField2 = false;
                   } else {
@@ -52,16 +55,18 @@ class _CustomPregnancyFormState extends State<CustomPregnancyForm> {
             ),
             Text(
               "High",
-              style: CustomTextStyles.lohit400style20,
+              style: CustomTextStyles.lohit400style20.copyWith(
+                fontSize: ScreenUtil().setSp(20), // تعيين حجم النص باستخدام ScreenUtil
+              ),
             ),
-            const SizedBox(width: 86),
+            SizedBox(width: ScreenUtil().setWidth(86)),
             Checkbox(
               value: isCheckedList[1],
               onChanged: (bool? value) {
                 setState(() {
                   isCheckedList[1] = value ?? false;
                   isCheckedList[0] = !isCheckedList[1];
-                  if (isCheckedList[1] = true) {
+                  if (isCheckedList[1]) {
                     showField1 = false;
                     showField2 = true;
                   } else {
@@ -72,27 +77,33 @@ class _CustomPregnancyFormState extends State<CustomPregnancyForm> {
             ),
             Text(
               'Low',
-              style: CustomTextStyles.lohit400style20,
+              style: CustomTextStyles.lohit400style20.copyWith(
+                fontSize: ScreenUtil().setSp(20), // تعيين حجم النص باستخدام ScreenUtil
+              ),
             ),
           ],
         ),
-        const SizedBox(
-          height: 25,
+        SizedBox(
+          height: ScreenUtil().setHeight(25),
         ),
         Row(
           children: [
             Image.asset(
               Assets.hand,
-              width: 50,
+              width: ScreenUtil().setWidth(50), // تعيين عرض الصورة باستخدام ScreenUtil
             ),
             Text(
               "Things to be careful of",
-              style: Theme.of(context).textTheme.titleMedium,
+              style:CustomTextStyles.lohit400style20.copyWith(color: Colors.blue)
             )
           ],
         ),
         Padding(
-          padding: const EdgeInsets.only(top: 15, left: 25, bottom: 15),
+          padding: EdgeInsets.only(
+            top: ScreenUtil().setHeight(15),
+            left: ScreenUtil().setWidth(25),
+            bottom: ScreenUtil().setHeight(15),
+          ),
           child: Column(
             children: [
               PregnancyInformation(text: "obesity."),
@@ -100,35 +111,38 @@ class _CustomPregnancyFormState extends State<CustomPregnancyForm> {
               PregnancyInformation(text: "polycystic ovary syndrome."),
               PregnancyInformation(
                   text: "giving birth to a baby weighing \nmore than 4.5 kg ."),
-              const SizedBox(
-                height: 15,
+              SizedBox(
+                height: ScreenUtil().setHeight(15),
               ),
               Row(
                 children: [
-                  const SizedBox(
-                    width: 35,
+                  SizedBox(
+                    width: ScreenUtil().setWidth(35),
                   ),
                   Text(
                     "OR ELSE",
-                    style: CustomTextStyles.lohit500style20
-                        .copyWith(fontWeight: FontWeight.bold),
+                    style: CustomTextStyles.lohit500style20.copyWith(
+                      fontWeight: FontWeight.bold,
+                      fontSize: ScreenUtil().setSp(20), // تعيين حجم النص باستخدام ScreenUtil
+                    ),
                   )
                 ],
               ),
-              const SizedBox(
-                height: 12,
+              SizedBox(
+                height: ScreenUtil().setHeight(12),
               ),
               PregnancyInformation(
-                  text:
-                      "Your risk of getting pregnancy \ndiabetes will increase."),
-              const SizedBox(
-                height: 12,
+                text:
+                    "Your risk of getting pregnancy \ndiabetes will increase.",
+              ),
+              SizedBox(
+                height: ScreenUtil().setHeight(12),
               ),
             ],
           ),
         ),
-        if (showField1) const HighBloodSuger(),
-        if (showField2) const LowBloodSuger()
+        if (showField1) HighBloodSuger(),
+        if (showField2) LowBloodSuger(),
       ],
     );
   }

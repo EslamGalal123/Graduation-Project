@@ -1,4 +1,3 @@
-
 import 'package:diiabest/core/Utils/App-Assets.dart';
 import 'package:diiabest/core/Utils/App-String.dart';
 import 'package:diiabest/core/Utils/App-TextStyles.dart';
@@ -10,6 +9,8 @@ import 'package:diiabest/feature/pregnancy/presentation/view/pregnancy_view.dart
 import 'package:diiabest/feature/reminder_medicins/presentation/view/reminder_medicin.dart';
 import 'package:diiabest/feature/sports/presentation/Sports.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 class CustomHome extends StatelessWidget {
   const CustomHome({super.key});
 
@@ -22,8 +23,8 @@ class CustomHome extends StatelessWidget {
           children: [
             Image.asset(
               Assets.imagesLogo2,
-              width: MediaQuery.of(context).size.width * 0.40,
-              height: MediaQuery.of(context).size.height * 0.2,
+              width: 108.w,
+              height: 105.h,
             ),
             Expanded(
               child: Column(
@@ -34,7 +35,7 @@ class CustomHome extends StatelessWidget {
                           letterSpacing: 3,
                           color: AppColors.black1,
                           fontFamily: "poppins",
-                          fontSize: 44,
+                          fontSize: 44.sp,
                           fontWeight: FontWeight.bold)),
                   Text(
                     AppStrings.enjayyourlifewithdiabest,
@@ -51,81 +52,67 @@ class CustomHome extends StatelessWidget {
           ],
         ),
         CustomListTileInHome(
-          titlehome:
-          AppStrings.organs,
+          titlehome: AppStrings.organs,
           //  Applocalizations.of(context)!.translatetext("organs"),
-          subtitlehome: 
-          AppStrings.neew,
+          subtitlehome: AppStrings.neew,
           // Applocalizations.of(context)!.translatetext("neew"),
           leadinghome: Assets.imagesorgans,
           onpressed: () {
-            Navigator.push(
-    context,
-    MaterialPageRoute(builder: (context) =>const organsView()));
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const OrgansView()));
             // customNavigate(context, "/organsView");
           },
         ),
         CustomListTileInHome(
-          titlehome: 
-          AppStrings.reminderMedicins,
+          titlehome: AppStrings.reminderMedicins,
           // Applocalizations.of(context)!.translatetext("reminderMedicins"),
-          subtitlehome:
-                    AppStrings.neew,
+          subtitlehome: AppStrings.neew,
 
           //  Applocalizations.of(context)!.translatetext("neew"),
           leadinghome: Assets.imagesImagePill,
           onpressed: () {
-Navigator.push(
-    context,
-    MaterialPageRoute(builder: (context) => const ReminderMedicinsView()));
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const ReminderMedicinsView()));
             // customNavigate(context, "/ReminderMedicinsView");
           },
         ),
         CustomListTileInHome(
-          titlehome:
-          AppStrings.eating,
+          titlehome: AppStrings.eating,
           //  Applocalizations.of(context)!.translatetext("eating"),
-          subtitlehome:
-                    AppStrings.neew,
+          subtitlehome: AppStrings.neew,
 
           //  Applocalizations.of(context)!.translatetext("neew"),
           leadinghome: Assets.imagesImageMeal,
           onpressed: () {
-            Navigator.push(
-    context,
-    MaterialPageRoute(builder: (context) => const EatingView()));
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const EatingView()));
             // customNavigate(context, "/eatingview");
           },
         ),
         CustomListTileInHome(
-          titlehome: 
-AppStrings.sprts,
+          titlehome: AppStrings.sprts,
           // Applocalizations.of(context)!.translatetext("sprts"),
-          subtitlehome:
-          AppStrings.neew
-          ,
+          subtitlehome: AppStrings.neew,
           //  Applocalizations.of(context)!.translatetext("neew"),
           leadinghome: Assets.imagesImageSports,
           onpressed: () {
             // customNavigate(context, "/WorkoutPlanScreen");
-              Navigator.push(
-    context,
-    MaterialPageRoute(builder: (context) =>  HomeScreen()));
+            Navigator.push(
+                context, MaterialPageRoute(builder: (context) => HomeScreen()));
           },
         ),
         CustomListTileInHome(
-          titlehome:
-          AppStrings.pregnancy,
+          titlehome: AppStrings.pregnancy,
           //  Applocalizations.of(context)!.translatetext("pregnancy"),
-          subtitlehome:
-                    AppStrings.neew,
+          subtitlehome: AppStrings.neew,
 
           //  Applocalizations.of(context)!.translatetext("neew"),
           leadinghome: Assets.imagespregnancy,
           onpressed: () {
-            Navigator.push(
-    context,
-    MaterialPageRoute(builder: (context) => const PregnancyView()));
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const PregnancyView()));
             // customNavigate(context, "/PregnancyView");
           },
         )

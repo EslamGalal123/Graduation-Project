@@ -463,11 +463,176 @@
 //   }
 // }
 
+// import 'dart:convert';
+// import 'dart:typed_data';
+
+// import 'package:flutter/material.dart';
+// import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
+
+// class BluetoothApp extends StatefulWidget {
+//   @override
+//   _BluetoothAppState createState() => _BluetoothAppState();
+// }
+
+// class _BluetoothAppState extends State<BluetoothApp> {
+//   BluetoothState _bluetoothState = BluetoothState.UNKNOWN;
+//   BluetoothDevice? _device;
+//   BluetoothConnection? _connection;
+//   bool _isConnected = false;
+//   String _value1 = '';
+//   String _value2 = '';
+
+//   @override
+//   void initState() {
+//     super.initState();
+
+//     FlutterBluetoothSerial.instance.state.then((state) {
+//       setState(() {
+//         _bluetoothState = state;
+//       });
+//     });
+
+//     FlutterBluetoothSerial.instance
+//         .onStateChanged()
+//         .listen((BluetoothState state) {
+//       setState(() {
+//         _bluetoothState = state;
+//       });
+//     });
+//   }
+
+//   @override
+//   void dispose() {
+//     if (_connection != null) {
+//       _connection!.dispose();
+//       _connection = null;
+//     }
+//     super.dispose();
+//   }
+
+//   void _startConnection() async {
+//     if (_device != null) {
+//       try {
+//         _connection = await BluetoothConnection.toAddress(_device!.address);
+//         setState(() {
+//           _isConnected = true;
+//         });
+//         print('Connected to the device');
+
+//         _connection!.input!.listen((Uint8List data) {
+//           String dataStr = utf8.decode(data);
+//           print('Data received: $dataStr');
+//           setState(() {
+//             List<String> values = dataStr.split(',');
+//             if (values.length >= 2) {
+//               _value1 = values[0];
+//               _value2 = values[1];
+//               print("value1 $_value1");
+//               print("value2 $_value2");
+//             } else {
+//               print('Received data does not contain two values');
+//             }
+//           });
+//         }).onDone(() {
+//           setState(() {
+//             _isConnected = false;
+//           });
+//           print('Disconnected by remote request');
+//         });
+//       } catch (exception) {
+//         print('Cannot connect, exception occurred');
+//         print(exception);
+//       }
+//     }
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: Text('Bluetooth Demo'),
+//       ),
+//       body: Center(
+//         child: Column(
+//           mainAxisAlignment: MainAxisAlignment.center,
+//           children: <Widget>[
+//             Text('Bluetooth State: $_bluetoothState'),
+//             SizedBox(height: 20),
+//             ElevatedButton(
+//               onPressed: () async {
+//                 final BluetoothDevice? selectedDevice =
+//                     await Navigator.of(context).push(
+//                   MaterialPageRoute(
+//                     builder: (context) => SelectDevicePage(),
+//                   ),
+//                 );
+
+//                 if (selectedDevice != null) {
+//                   setState(() {
+//                     _device = selectedDevice;
+//                   });
+//                 }
+//               },
+//               child: Text('Select Device'),
+//             ),
+//             SizedBox(height: 20),
+//             ElevatedButton(
+//               onPressed:
+//                   _device != null && !_isConnected ? _startConnection : null,
+//               child: Text(_isConnected ? 'Connected' : 'Connect'),
+//             ),
+//             SizedBox(height: 20),
+//             Text('Value 1: $_value1'),
+//             Text('Value 2: $_value2'),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }
+
+// class SelectDevicePage extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: Text('Select Device'),
+//       ),
+//       body: FutureBuilder<List<BluetoothDevice>>(
+//         future: FlutterBluetoothSerial.instance.getBondedDevices(),
+//         builder: (BuildContext context,
+//             AsyncSnapshot<List<BluetoothDevice>> snapshot) {
+//           if (snapshot.hasData) {
+//             return ListView(
+//               children: snapshot.data!.map((device) {
+//                 return ListTile(
+//                   title: Text(device.name ?? 'Unknown device'),
+//                   subtitle: Text(device.address),
+//                   onTap: () {
+//                     Navigator.of(context).pop(device);
+//                   },
+//                 );
+//               }).toList(),
+//             );
+//           } else if (snapshot.hasError) {
+//             return Center(child: Text('Error: ${snapshot.error}'));
+//           } else {
+//             return Center(child: CircularProgressIndicator());
+//           }
+//         },
+//       ),
+//     );
+//   }
+// }
 import 'dart:convert';
 import 'dart:typed_data';
 
+import 'package:diiabest/core/Utils/App-TextStyles.dart';
+import 'package:diiabest/core/Utils/App-colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bluetooth_serial/flutter_bluetooth_serial.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:slide_to_act/slide_to_act.dart';
 
 class BluetoothApp extends StatefulWidget {
   @override
@@ -481,6 +646,8 @@ class _BluetoothAppState extends State<BluetoothApp> {
   bool _isConnected = false;
   String _value1 = '';
   String _value2 = '';
+  List<int> _heartRateData = [];
+  double _maxYHeartRate = 100;
 
   @override
   void initState() {
@@ -527,10 +694,22 @@ class _BluetoothAppState extends State<BluetoothApp> {
             if (values.length >= 2) {
               _value1 = values[0];
               _value2 = values[1];
-              print("value1 $_value1");
-              print("value2 $_value2");
             } else {
               print('Received data does not contain two values');
+            }
+
+            // Parse heart rate and update chart data
+            try {
+              int heartRate = int.parse(values[1]);
+              _heartRateData.add(heartRate);
+              if (_heartRateData.length > 20) {
+                _heartRateData.removeAt(0); // Keep only last 20 data points
+              }
+              _maxYHeartRate = _heartRateData
+                  .reduce((curr, next) => curr > next ? curr : next)
+                  .toDouble();
+            } catch (e) {
+              print('Error parsing heart rate: $e');
             }
           });
         }).onDone(() {
@@ -546,57 +725,162 @@ class _BluetoothAppState extends State<BluetoothApp> {
     }
   }
 
+  String _getClassificationSugar(String value) {
+    try {
+      double sugarValue = double.parse(value);
+      if (sugarValue < 80) {
+        return "Low";
+      } else if (sugarValue > 130) {
+        return "High";
+      } else {
+        return "Normal";
+      }
+    } catch (e) {
+      return "";
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Bluetooth Demo'),
+        title: Text(
+          'Your Device',
+          style: CustomTextStyles.lohit500style20,
+        ),
       ),
-      body: Center(
+      body: SingleChildScrollView(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text('Bluetooth State: $_bluetoothState'),
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () async {
-                final BluetoothDevice? selectedDevice =
-                    await Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => SelectDevicePage(),
+          children: [
+            Container(
+              color: const Color(0xff68c2ec),
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                children: <Widget>[
+                  ElevatedButton(
+                    onPressed: () async {
+                      final BluetoothDevice? selectedDevice =
+                          await Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => SelectDevicePage(),
+                        ),
+                      );
+                      if (selectedDevice != null) {
+                        setState(() {
+                          _device = selectedDevice;
+                        });
+                      }
+                    },
+                    child: Text(
+                      'Select Device',
+                      style: CustomTextStyles.lohit400style18,
+                    ),
                   ),
-                );
-
-                if (selectedDevice != null) {
-                  setState(() {
-                    _device = selectedDevice;
-                  });
-                }
-              },
-              child: Text('Select Device'),
+                   SizedBox(height: 20.h),
+                  SlideAction(
+                    innerColor: Colors.blue,
+                    outerColor: const Color(0xff7d8182)!,
+                    sliderButtonIcon: const Icon(Icons.bluetooth),
+                    onSubmit: () async {
+                      if (_device != null) {
+                        _startConnection();
+                      }
+                    },
+                    text: 'Connect to Device',
+                    textStyle: CustomTextStyles.lohit400style18
+                        .copyWith(color: Colors.white),
+                  ),
+                ],
+              ),
             ),
-            SizedBox(height: 20),
-            ElevatedButton(
-              onPressed:
-                  _device != null && !_isConnected ? _startConnection : null,
-              child: Text(_isConnected ? 'Connected' : 'Connect'),
+            const SizedBox(height: 20),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Expanded(
+                        child: _buildDataContainer("Dia Best Read:", _value1),
+                      ),
+                      const SizedBox(width: 17),
+                      Expanded(
+                        child: _buildDataContainer("RBS :", _value1),
+                      ),
+                    ],
+                  ),
+                   SizedBox(height: 13.h),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: _buildDataContainer("Pulse Rate :", _value2),
+                      ),
+                      const SizedBox(width: 10),
+                      Expanded(
+                        child: _buildDataContainer("Heart Beats:", _value2),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 19.h),
+                  _buildDataContainer(
+                    "Classification Sugar :",
+                    _getClassificationSugar(_value1),
+                  ),
+                ],
+              ),
             ),
-            SizedBox(height: 20),
-            Text('Value 1: $_value1'),
-            Text('Value 2: $_value2'),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildDataContainer(String title, String value) {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(10),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.5),
+            spreadRadius: 2,
+            blurRadius: 5,
+            offset: const Offset(0, 3),
+          ),
+        ],
+      ),
+      child: Row(
+        children: [
+          Expanded(
+              flex: 2,
+              child: Text(title,
+                  style:
+                      CustomTextStyles.lohit500style18.copyWith(fontSize: 15.sp))),
+           SizedBox(width: 10.w),
+          Expanded(
+            flex: 3,
+            child: Text(
+              value,
+              style: CustomTextStyles.lohit400style18
+                  .copyWith(color: AppColors.black2, fontSize: 16.sp),
+            ),
+          ),
+        ],
       ),
     );
   }
 }
 
 class SelectDevicePage extends StatelessWidget {
+  const SelectDevicePage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Select Device'),
+        title: const Text('Select Device'),
       ),
       body: FutureBuilder<List<BluetoothDevice>>(
         future: FlutterBluetoothSerial.instance.getBondedDevices(),
@@ -617,7 +901,7 @@ class SelectDevicePage extends StatelessWidget {
           } else if (snapshot.hasError) {
             return Center(child: Text('Error: ${snapshot.error}'));
           } else {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           }
         },
       ),

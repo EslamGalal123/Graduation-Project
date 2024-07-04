@@ -8,7 +8,7 @@ class PregnancyView extends StatelessWidget {
     return const Scaffold(
         body: SafeArea(
           child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 16.0),
+              padding: EdgeInsets.symmetric(horizontal: 10.0),
               child: CustomScrollView(
                   physics:  BouncingScrollPhysics(),
                   slivers: [

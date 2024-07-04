@@ -11,8 +11,8 @@ import 'package:diiabest/feature/auth/Presentation/widgets/have_an_account_widge
 import 'package:diiabest/feature/auth/auth_cubit/auth_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-// ignore: must_be_immutable
 class CustomSignInForm extends StatelessWidget {
   CustomSignInForm({super.key});
   TextEditingController emailAddress = TextEditingController();
@@ -21,14 +21,13 @@ class CustomSignInForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final formKey = GlobalKey<FormState>();
-    final double height = MediaQuery.of(context).size.height;
     return Form(
       key: formKey,
       child: Column(
         children: [
           Image.asset(
             Assets.imagesLogo,
-            height: height * 0.4,
+            height: 0.4.sh,
           ),
           Text(
             AppStrings.logintoyouraccount,
@@ -36,7 +35,7 @@ class CustomSignInForm extends StatelessWidget {
             style: CustomTextStyles.lohit500style24,
           ),
           SizedBox(
-            height: height * 0.02,
+            height: 20.h,
           ),
           CustomTextFormField(
             mycontroller: emailAddress,
@@ -46,14 +45,15 @@ class CustomSignInForm extends StatelessWidget {
             onChanged: (email) {},
           ),
           CustomTextFormField(
-              mycontroller: password,
-              labelText: AppStrings.password,
-              // Applocalizations.of(context)!.translatetext("password"),
-              prefixIcon: const Icon(Icons.lock),
-              onChanged: (password) {}),
+            mycontroller: password,
+            labelText: AppStrings.password,
+            // Applocalizations.of(context)!.translatetext("password"),
+            prefixIcon: const Icon(Icons.lock),
+            onChanged: (password) {},
+          ),
           const CustomCheckBox(),
           SizedBox(
-            height: height * 0.01,
+            height: 10.h,
           ),
           CustomBtn(
             text: AppStrings.signIn,
@@ -68,22 +68,31 @@ class CustomSignInForm extends StatelessWidget {
             },
           ),
           SizedBox(
-            height: height * 0.01,
+            height: 10.h,
           ),
           const ForgotPasswordTextWidget(),
           SizedBox(
-            height: height * 0.02,
+            height: 20.h,
           ),
-         const Row(
+          const Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              CustomSocialIcons(image: Assets.imagesImageFacebook, url: '',),
-              CustomSocialIcons(image: Assets.imagesImageGoogle, url: '',),
-              CustomSocialIcons(image: Assets.imagesImageApple, url: '',),
+              CustomSocialIcons(
+                image: Assets.imagesImageFacebook,
+                url: '',
+              ),
+              CustomSocialIcons(
+                image: Assets.imagesImageGoogle,
+                url: '',
+              ),
+              CustomSocialIcons(
+                image: Assets.imagesImageApple,
+                url: '',
+              ),
             ],
           ),
           SizedBox(
-            height: height * 0.01,
+            height: 10.h,
           ),
           HaveAnAccountWidget(
             text1: AppStrings.donthaveanaccount,
@@ -91,8 +100,10 @@ class CustomSignInForm extends StatelessWidget {
             text2: AppStrings.signUp,
             //  Applocalizations.of(context)!.translatetext("signUp"),
             onTap: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const SignUpView()));
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const SignUpView()),
+              );
               //  customNavigate(context, "/signUp");
             },
           )

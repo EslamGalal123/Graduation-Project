@@ -1,3 +1,5 @@
+import 'package:diiabest/core/Utils/App-TextStyles.dart';
+import 'package:diiabest/core/Utils/App-colors.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
@@ -6,6 +8,6 @@ class DoctorAdress extends StatelessWidget {
 String? text;
   @override
   Widget build(BuildContext context) {
-    return Text(text!,style: Theme.of(context).textTheme.titleSmall);
+    return Text(text!,style: CustomTextStyles.lohit400style18.copyWith(color: AppColors.black1));
   }
 }

@@ -22,7 +22,7 @@ class SplachViewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<AuthCubit, AuthState>(
+    return BlocListener<AuthCubit, AuthState>( 
       listener: (context, state) {
         if (state is UserFound) {
           if (state.role == AppStrings.doctor) {

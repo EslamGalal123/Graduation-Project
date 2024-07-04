@@ -8,24 +8,11 @@ import 'package:diiabest/feature/auth/auth_cubit/auth_cubit.dart';
 import 'package:diiabest/feature/doctor/presentation/views/doctor_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 // ignore: must_be_immutable
-class CustomSignUpForm extends StatefulWidget {
-  const CustomSignUpForm({super.key});
-
-  @override
-  State<CustomSignUpForm> createState() => _CustomSignUpFormState();
-}
-
-enum Gender { Male, Female }
-
-Gender? selectedGender;
-
-class _CustomSignUpFormState extends State<CustomSignUpForm> {
-  String? gender;
-  String? selectedGender;
-  bool isExpanded = false;
+class CustomSignUpForm extends StatelessWidget {
+  const CustomSignUpForm({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -42,10 +29,11 @@ class _CustomSignUpFormState extends State<CustomSignUpForm> {
         if (state is SignUpSuccess) {
           if (state.currentUser.role == AppStrings.patient) {
             Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => const RegisterPatientInformation()));
-            // customNavigate(context, "/registerYourInformation");
+              context,
+              MaterialPageRoute(
+                builder: (context) => const RegisterPatientInformation(),
+              ),
+            );
           } else {
             Navigator.push(
               context,
@@ -53,95 +41,88 @@ class _CustomSignUpFormState extends State<CustomSignUpForm> {
                 builder: (context) => const DoctorView(),
               ),
             );
-            // customNavigate(context, "/doctor");
           }
         }
       },
-      child: Column(children: [
-        CustomTextFormField(
-          mycontroller: BlocProvider.of<AuthCubit>(context).fullName,
-          labelText: AppStrings.fullname,
-          //  Applocalizations.of(context)!.translatetext("fullname"),
-          onChanged: (fristName) {},
-        ),
-        CustomTextFormField(
-          mycontroller: BlocProvider.of<AuthCubit>(context).nationalID,
-          labelText: AppStrings.nationalID,
-          // Applocalizations.of(context)!.translatetext("nationalID"),
-          onChanged: (lastName) {},
-        ),
-
-        Container(
-            padding: const EdgeInsets.only(right: 15, left: 15, top: 5),
-            margin: EdgeInsets.only(
-              top: 15,
+      child: SingleChildScrollView(
+        padding: EdgeInsets.all(5.w),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            CustomTextFormField(
+              mycontroller: BlocProvider.of<AuthCubit>(context).fullName,
+              labelText: AppStrings.fullname,
+              onChanged: (fristName) {},
             ),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              border: Border.all(color: AppColors.grey),
+            CustomTextFormField(
+              mycontroller: BlocProvider.of<AuthCubit>(context).nationalID,
+              labelText: AppStrings.nationalID,
+              onChanged: (lastName) {},
             ),
-            child: PopupMenuButton(
-              icon: Container(
-                child: Row(
-                  children: [
-                    Text(
-                      selectedGender ?? "Gender",
-                      style: TextStyle(fontSize: 16),
-                    ),
-                  ],
-                ),
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 15.w, vertical: 5.h),
+              margin: EdgeInsets.only(top: 15.h),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                border: Border.all(color: AppColors.grey),
               ),
-              onSelected: (value) {
-                setState(() {
-                  selectedGender = value;
-                });
-                BlocProvider.of<AuthCubit>(context).gender = value;
-              },
-              itemBuilder: (context) {
-                return [
-                  const PopupMenuItem(
-                    value: AppStrings.male,
-                    child: Text(
-                      "Male",
-                      style: TextStyle(fontSize: 16),
-                    ),
+              child: PopupMenuButton(
+                icon: Container(
+                  child: Row(
+                    children: [
+                      Text(
+                        BlocProvider.of<AuthCubit>(context).gender ?? "Gender",
+                        style: TextStyle(fontSize: 16.sp),
+                      ),
+                    ],
                   ),
-                  const PopupMenuItem(
-                    value: AppStrings.female,
-                    child: Text(
-                      "Female",
-                      style: TextStyle(fontSize: 16),
+                ),
+                onSelected: (value) {
+                  BlocProvider.of<AuthCubit>(context).gender = value.toString();
+                },
+                itemBuilder: (context) {
+                  return [
+                     PopupMenuItem(
+                      value: AppStrings.male,
+                      child: Text(
+                        "Male",
+                        style: TextStyle(fontSize: 16.sp),
+                      ),
                     ),
-                  ),
-                ];
-              },
-            )
+                     PopupMenuItem(
+                      value: AppStrings.female,
+                      child: Text(
+                        "Female",
+                        style: TextStyle(fontSize: 16.sp),
+                      ),
+                    ),
+                  ];
+                },
+              ),
             ),
-
-        CustomTextFormField(
-          mycontroller: BlocProvider.of<AuthCubit>(context).emailAddress,
-          labelText: AppStrings.emailAddress,
-          // Applocalizations.of(context)!.translatetext("emailAddress"),
-          prefixIcon: const Icon(Icons.email),
-          onChanged: (email) {},
+            CustomTextFormField(
+              mycontroller: BlocProvider.of<AuthCubit>(context).emailAddress,
+              labelText: AppStrings.emailAddress,
+              prefixIcon: const Icon(Icons.email),
+              onChanged: (email) {},
+            ),
+            CustomTextFormField(
+              mycontroller: BlocProvider.of<AuthCubit>(context).password,
+              labelText: AppStrings.password,
+              prefixIcon: const Icon(Icons.lock),
+              onChanged: (password) {},
+            ),
+            CustomTextFormField(
+              mycontroller: BlocProvider.of<AuthCubit>(context).confirmThePassword,
+              labelText: AppStrings.confirmThePassword,
+              prefixIcon: const Icon(Icons.lock),
+              onChanged: (password) {},
+            ),
+            SizedBox(height: 10.h),
+            const SignUpRadio(),
+          ],
         ),
-        CustomTextFormField(
-            mycontroller: BlocProvider.of<AuthCubit>(context).password,
-            labelText: AppStrings.password,
-            //  Applocalizations.of(context)!.translatetext("password"),
-            prefixIcon: const Icon(Icons.lock),
-            onChanged: (password) {}),
-        CustomTextFormField(
-            mycontroller:
-                BlocProvider.of<AuthCubit>(context).confirmThePassword,
-            labelText: AppStrings.confirmThePassword,
-            // Applocalizations.of(context)!.translatetext("confirmThePassword"),
-            prefixIcon: const Icon(Icons.lock),
-            onChanged: (password) {}),
-        SizedBox(height: height * 0.01),
-
-        const SignUpRadio(),
-      ]),
+      ),
     );
   }
 }

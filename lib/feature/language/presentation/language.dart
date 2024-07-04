@@ -1,9 +1,11 @@
+import 'package:diiabest/core/Utils/App-TextStyles.dart';
 import 'package:diiabest/feature/On-Boarding/presentation/views/on-boarding-view.dart';
 import 'package:diiabest/feature/auth/Presentation/Views/sign_in.dart';
 import 'package:diiabest/feature/auth/auth_cubit/autch_state.dart';
 import 'package:diiabest/feature/auth/auth_cubit/auth_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ChangeLanguage extends StatelessWidget {
   const ChangeLanguage({super.key});
@@ -31,43 +33,46 @@ class ChangeLanguage extends StatelessWidget {
         },
         child: Container(
           decoration: const BoxDecoration(
-              gradient: LinearGradient(
-            colors: [Color(0xffa1c4fd), Color(0xffc2e9fb)],
-          )),
-          height: MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.width,
+            gradient: LinearGradient(
+              colors: [Color(0xffa1c4fd), Color(0xffc2e9fb)],
+            ),
+          ),
+          height: 1.sh,
+          width: 1.sw,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Text(
+              Text(
                 "Choose The Language",
+                style: CustomTextStyles.lohit500style20.copyWith(fontSize: 20.sp),
                 // Applocalizations.of(context)!.translatetext("choose the language")
               ),
-              const SizedBox(
-                height: 15,
-              ),
-              ElevatedButton(
-                  onPressed: () {
-                    BlocProvider.of<AuthCubit>(context).checkShowOnBoard();
-                    // BlocProvider.of<ApplanguageBloc>(context).add(ArabicLanguageEvent());
-                    // customNavigate(context, "/signIn");
-                  },
-                  child: const Text(
-                    "اللغة العربية ",
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                  )),
-              const SizedBox(
-                height: 15,
+              SizedBox(
+                height: 15.h,
               ),
               ElevatedButton(
                 onPressed: () {
                   BlocProvider.of<AuthCubit>(context).checkShowOnBoard();
-                  //             BlocProvider.of<ApplanguageBloc>(context).add(EnglishLanguageEvent());
+                  // BlocProvider.of<ApplanguageBloc>(context).add(ArabicLanguageEvent());
+                  // customNavigate(context, "/signIn");
+                },
+                child: Text(
+                  "اللغة العربية ",
+                  style: TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold),
+                ),
+              ),
+              SizedBox(
+                height: 15.h,
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  BlocProvider.of<AuthCubit>(context).checkShowOnBoard();
+                  // BlocProvider.of<ApplanguageBloc>(context).add(EnglishLanguageEvent());
                   // customNavigate(context, '/OnBoarding');
                 },
-                child: const Text(
+                child: Text(
                   "  English  ",
-                  style: TextStyle(fontSize: 20),
+                  style: TextStyle(fontSize: 20.sp),
                 ),
               ),
             ],

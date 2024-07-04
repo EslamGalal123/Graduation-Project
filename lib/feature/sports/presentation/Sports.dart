@@ -1,6 +1,7 @@
 import 'package:diiabest/core/Utils/App-TextStyles.dart';
 import 'package:diiabest/core/Utils/App-colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class Sport {
   final String name;
@@ -197,10 +198,10 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title:  Text('Sport Recommendations',style: CustomTextStyles.lohit500style22),
+        title: Text('Sport Recommendations', style: CustomTextStyles.lohit500style22),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: EdgeInsets.all(ScreenUtil().setWidth(16)),
         child: SingleChildScrollView(
           child: Form(
             key: _formKey,
@@ -209,29 +210,29 @@ class _HomeScreenState extends State<HomeScreen> {
                 Card(
                   elevation: 5,
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15),
+                    borderRadius: BorderRadius.circular(ScreenUtil().setWidth(15)),
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.all(16.0),
+                    padding: EdgeInsets.all(ScreenUtil().setWidth(16)),
                     child: Column(
                       children: [
-                        const Text(
+                        Text(
                           'Enter Your Information',
                           style: TextStyle(
-                            fontSize: 24,
+                            fontSize: ScreenUtil().setSp(24),
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        const SizedBox(height: 20),
+                        SizedBox(height: ScreenUtil().setHeight(20)),
                         TextFormField(
                           controller: _weightController,
                           decoration: InputDecoration(
                             labelText: 'Weight (kg)',
                             labelStyle: CustomTextStyles.lohit400style18,
                             border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
+                              borderRadius: BorderRadius.circular(ScreenUtil().setWidth(10)),
                             ),
-                            prefixIcon: const Icon(Icons.line_weight),
+                            prefixIcon: Icon(Icons.line_weight),
                           ),
                           keyboardType: TextInputType.number,
                           validator: (value) {
@@ -241,16 +242,16 @@ class _HomeScreenState extends State<HomeScreen> {
                             return null;
                           },
                         ),
-                        const SizedBox(height: 20),
+                        SizedBox(height: ScreenUtil().setHeight(20)),
                         TextFormField(
                           controller: _heightController,
                           decoration: InputDecoration(
                             labelText: 'Height (cm)',
-                              labelStyle: CustomTextStyles.lohit400style18,
+                            labelStyle: CustomTextStyles.lohit400style18,
                             border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
+                              borderRadius: BorderRadius.circular(ScreenUtil().setWidth(10)),
                             ),
-                            prefixIcon: const Icon(Icons.height),
+                            prefixIcon: Icon(Icons.height),
                           ),
                           keyboardType: TextInputType.number,
                           validator: (value) {
@@ -260,7 +261,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             return null;
                           },
                         ),
-                        const SizedBox(height: 20),
+                        SizedBox(height: ScreenUtil().setHeight(20)),
                         CheckboxListTile(
                           title: Text('Heart Condition',style: CustomTextStyles.lohit400style18.copyWith(color: AppColors.black1)),
                           value: _heartCondition,
@@ -272,7 +273,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           controlAffinity: ListTileControlAffinity.leading,
                         ),
                         CheckboxListTile(
-                          title:  Text('Diabetes',style: CustomTextStyles.lohit400style18.copyWith(color: AppColors.black1)),
+                          title: Text('Diabetes',style: CustomTextStyles.lohit400style18.copyWith(color: AppColors.black1)),
                           value: _diabetes,
                           onChanged: (value) {
                             setState(() {
@@ -281,7 +282,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           },
                           controlAffinity: ListTileControlAffinity.leading,
                         ),
-                        const SizedBox(height: 20),
+                        SizedBox(height: ScreenUtil().setHeight(20)),
                         ElevatedButton(
                           onPressed: () {
                             if (_formKey.currentState!.validate()) {
@@ -294,21 +295,22 @@ class _HomeScreenState extends State<HomeScreen> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => RecommendationScreen(
-                                        recommendedSports: _recommendedSports)),
+                                  builder: (context) => RecommendationScreen(recommendedSports: _recommendedSports),
+                                ),
                               );
                             }
                           },
-                        style: ElevatedButton.styleFrom(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 30, vertical: 15),
-                                backgroundColor: AppColors.primarycolor,
+                          style: ElevatedButton.styleFrom(
+                            padding: EdgeInsets.symmetric(horizontal: ScreenUtil().setWidth(30), vertical: ScreenUtil().setWidth(15)),
+                            backgroundColor: AppColors.primarycolor,
                             shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(25),
+                              borderRadius: BorderRadius.circular(ScreenUtil().setWidth(25)),
                             ),
                           ),
-                          child:  Text('Get Recommendations',style: CustomTextStyles.lohit500style24
-              .copyWith(fontSize: 21, color: AppColors.offwhite),),
+                          child: Text(
+                            'Get Recommendations',
+                            style: CustomTextStyles.lohit500style24.copyWith(fontSize: ScreenUtil().setSp(21), color: AppColors.offwhite),
+                          ),
                         ),
                       ],
                     ),
@@ -332,42 +334,42 @@ class RecommendationScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title:  Text('Recommended Sports',style: CustomTextStyles.lohit500style22),
+        title: Text('Recommended Sports', style: CustomTextStyles.lohit500style22),
       ),
       body: ListView.builder(
         itemCount: recommendedSports.length,
         itemBuilder: (context, index) {
           final sport = recommendedSports[index];
           return AnimatedContainer(
-            duration: const Duration(milliseconds: 500),
+            duration: Duration(milliseconds: 500),
             curve: Curves.easeInOut,
-            margin: const EdgeInsets.all(8.0),
+            margin: EdgeInsets.all(ScreenUtil().setWidth(8)),
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15),
+              borderRadius: BorderRadius.circular(ScreenUtil().setWidth(15)),
               boxShadow: [
                 BoxShadow(
                   color: Colors.grey.withOpacity(0.5),
-                  spreadRadius: 5,
-                  blurRadius: 7,
-                  offset: const Offset(0, 3),
+                  spreadRadius: ScreenUtil().setWidth(5),
+                  blurRadius: ScreenUtil().setWidth(7),
+                  offset: Offset(0, ScreenUtil().setWidth(3)),
                 ),
               ],
-              color: const Color(0xfff4f4f4),
+              color: Color(0xfff4f4f4),
             ),
             child: ListTile(
-              leading: Icon(sport.icon, size: 40),
+              leading: Icon(sport.icon, size: ScreenUtil().setWidth(40)),
               title: Text(
                 sport.name,
-                style: const TextStyle(
+                style: TextStyle(
                   color: Color(0xff86beec),
                   fontWeight: FontWeight.bold,
-                  fontSize: 20,
+                  fontSize: ScreenUtil().setSp(20),
                 ),
               ),
               subtitle: Text(
                 '${sport.category}\n${sport.benefits}',
-                style: const TextStyle(
-                  fontSize: 16,
+                style: TextStyle(
+                  fontSize: ScreenUtil().setSp(16),
                 ),
               ),
             ),

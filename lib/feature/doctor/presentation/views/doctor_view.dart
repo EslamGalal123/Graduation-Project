@@ -10,7 +10,8 @@ import 'package:diiabest/feature/doctor/presentation/widgets/doctor_adresses.dar
 import 'package:diiabest/feature/doctor/presentation/widgets/time_work.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-// ignore: must_be_immutable
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 class DoctorView extends StatelessWidget {
   const DoctorView({super.key});
 
@@ -30,8 +31,14 @@ class DoctorViewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final double width = MediaQuery.of(context).size.width;
-    final double height = MediaQuery.of(context).size.height;
+    ScreenUtil.init(
+      context,
+      designSize: const Size(375, 812), // تصميمك الأساسي للشاشة
+    );
+
+    final double width = 1.sw;
+    final double height = 1.sh;
+
     return Form(
       key: BlocProvider.of<DoctorCubit>(context).formKey,
       child: BlocListener<DoctorCubit, DoctorState>(
@@ -41,7 +48,6 @@ class DoctorViewBody extends StatelessWidget {
               context,
               MaterialPageRoute(
                 builder: (context) => const ProfileDoctorView(),
-            
               ),
               (route) => false,
             );
@@ -57,137 +63,145 @@ class DoctorViewBody extends StatelessWidget {
         },
         child: SafeArea(
           child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: CustomScrollView(
-                  physics: const BouncingScrollPhysics(),
-                  slivers: [
-                    SliverToBoxAdapter(
-                        child: SizedBox(
-                      height: height * 0.04,
-                    )),
-                    SliverToBoxAdapter(
-                        child: Text(
-                      AppStrings.registernow,
-                      // Applocalizations.of(context)!.translatetext("registernow"),
-                      style: CustomTextStyles.lohit500style24.copyWith(
-                          fontWeight: FontWeight.w700, color: AppColors.black2),
-                    )),
-                    SliverToBoxAdapter(
-                        child: SizedBox(
-                      height: height * 0.02,
-                    )),
-                    SliverToBoxAdapter(
-                        child: DoctorAdress(
-                      text: AppStrings.specialization,
-                      // Applocalizations.of(context)!.translatetext("specialization"),
-                    )),
-                    SliverToBoxAdapter(
-                        child: SizedBox(
-                      height: height * 0.01,
-                    )),
-                    const SliverToBoxAdapter(child: CheckedContainer()),
-                    SliverToBoxAdapter(
-                        child: SizedBox(
-                      height: height * 0.01,
-                    )),
-                    SliverToBoxAdapter(
-                        child: DoctorAdress(
-                      text: AppStrings.clinicaddress,
-                      //  Applocalizations.of(context)!.translatetext("clinicaddress"),
-                    )),
-                    SliverToBoxAdapter(
-                        child: SizedBox(
-                      height: height * 0.01,
-                    )),
-                    SliverToBoxAdapter(
-                        child: CustomTextFormField(
-                      mycontroller: BlocProvider.of<DoctorCubit>(context)
-                          .citystreetblocknumber,
-                      labelText: AppStrings.citystreetblocknumber,
-                      //  Applocalizations.of(context)!.translatetext("citystreetblocknumber"),
-                      prefixIcon: const Icon(Icons.location_city_rounded),
-                    )),
-                    SliverToBoxAdapter(
-                        child: CustomTextFormField(
-                      mycontroller:
-                          BlocProvider.of<DoctorCubit>(context).phoneNumbe,
-                      labelText: AppStrings.phoneNumbe,
-                      //  Applocalizations.of(context)!.translatetext("phoneNumbe"),
-                      prefixIcon: const Icon(Icons.phone),
-                    )),
-                    SliverToBoxAdapter(
-                        child: CustomTextFormField(
-                      mycontroller:
-                          BlocProvider.of<DoctorCubit>(context).facebook,
-                      labelText: "Link Of Facebook",
-                      //  Applocalizations.of(context)!.translatetext("Link Of Facebook"),
-                      prefixIcon: const Icon(Icons.facebook),
-                    )),
-                    SliverToBoxAdapter(
-                        child: CustomTextFormField(
-                      mycontroller:
-                          BlocProvider.of<DoctorCubit>(context).whatsApp,
-                      labelText: "Link Of WhatsApp",
-                      //  Applocalizations.of(context)!.translatetext("Link Of WhatsApp"),
-                      prefixIcon: const Icon(Icons.chat),
-                    )),
-                    SliverToBoxAdapter(
-                        child: SizedBox(
-                      height: height * 0.02,
-                    )),
-                    SliverToBoxAdapter(
-                        child: Row(
-                      children: [
-                        const Icon(Icons.punch_clock),
-                        DoctorAdress(
-                          text: AppStrings.timework,
-                          // Applocalizations.of(context)!.translatetext("timework"),
-                        )
-                      ],
-                    )),
-                    SliverToBoxAdapter(
-                        child: SizedBox(
-                      height: height * 0.01,
-                    )),
-                    SliverToBoxAdapter(
-                      child: Row(
-                        children: [
-                          const TimeWork(
-                            date: AppStrings.start,
-                            isStartTime: true,
-                            // Applocalizations.of(context)!.translatetext("start")
-                          ),
-                          SizedBox(
-                            width: width * 0.2,
-                          ),
-                          const TimeWork(
-                            date: AppStrings.end,
-                            isStartTime: false,
-                            // Applocalizations.of(context)!.translatetext("end")
-                          ),
-                        ],
-                      ),
+            padding: EdgeInsets.symmetric(horizontal: 13.w),
+            child: CustomScrollView(
+              physics: const BouncingScrollPhysics(),
+              slivers: [
+                SliverToBoxAdapter(
+                  child: SizedBox(
+                    height: height * 0.04,
+                  ),
+                ),
+                SliverToBoxAdapter(
+                  child: Text(
+                    AppStrings.registernow,
+                    style: CustomTextStyles.lohit500style24.copyWith(
+                      fontWeight: FontWeight.w700,
+                      color: AppColors.black2,
+                      fontSize: 24.sp,
                     ),
-                    SliverToBoxAdapter(
-                        child: SizedBox(
-                      height: height * 0.06,
-                    )),
-                    SliverToBoxAdapter(
-                        child: CustomBtn(
-                      text: AppStrings.saveprofile,
-                      // Applocalizations.of(context)!.translatetext("saveprofile"),
-                      onPressed: () {
-                        var formKey =
-                            BlocProvider.of<DoctorCubit>(context).formKey;
-                        if (formKey.currentState!.validate()) {
-                          BlocProvider.of<DoctorCubit>(context)
-                              .registerDoctor();
-                        }
-
-                        // customNavigate(context, "/ProfileDoctorView");
-                      },
-                    )),
-                  ])),
+                  ),
+                ),
+                SliverToBoxAdapter(
+                  child: SizedBox(
+                    height: height * 0.02,
+                  ),
+                ),
+                SliverToBoxAdapter(
+                  child: DoctorAdress(
+                    text: AppStrings.specialization,
+                  ),
+                ),
+                SliverToBoxAdapter(
+                  child: SizedBox(
+                    height: height * 0.01,
+                  ),
+                ),
+                const SliverToBoxAdapter(child: CheckedContainer()),
+                SliverToBoxAdapter(
+                  child: SizedBox(
+                    height: height * 0.01,
+                  ),
+                ),
+                SliverToBoxAdapter(
+                  child: DoctorAdress(
+                    text: AppStrings.clinicaddress,
+                  ),
+                ),
+                SliverToBoxAdapter(
+                  child: SizedBox(
+                    height: height * 0.01,
+                  ),
+                ),
+                SliverToBoxAdapter(
+                  child: CustomTextFormField(
+                    mycontroller: BlocProvider.of<DoctorCubit>(context)
+                        .citystreetblocknumber,
+                    labelText: AppStrings.citystreetblocknumber,
+                    prefixIcon: const Icon(Icons.location_city_rounded),
+                  ),
+                ),
+                SliverToBoxAdapter(
+                  child: CustomTextFormField(
+                    mycontroller:
+                        BlocProvider.of<DoctorCubit>(context).phoneNumbe,
+                    labelText: AppStrings.phoneNumbe,
+                    prefixIcon: const Icon(Icons.phone),
+                  ),
+                ),
+                SliverToBoxAdapter(
+                  child: CustomTextFormField(
+                    mycontroller:
+                        BlocProvider.of<DoctorCubit>(context).facebook,
+                    labelText: "Link Of Facebook",
+                    prefixIcon: const Icon(Icons.facebook),
+                  ),
+                ),
+                SliverToBoxAdapter(
+                  child: CustomTextFormField(
+                    mycontroller:
+                        BlocProvider.of<DoctorCubit>(context).whatsApp,
+                    labelText: "Link Of WhatsApp",
+                    prefixIcon: const Icon(Icons.chat),
+                  ),
+                ),
+                SliverToBoxAdapter(
+                  child: SizedBox(
+                    height: height * 0.02,
+                  ),
+                ),
+                SliverToBoxAdapter(
+                  child: Row(
+                    children: [
+                      const Icon(Icons.punch_clock),
+                      DoctorAdress(
+                        text: AppStrings.timework,
+                      ),
+                    ],
+                  ),
+                ),
+                SliverToBoxAdapter(
+                  child: SizedBox(
+                    height: height * 0.01,
+                  ),
+                ),
+                SliverToBoxAdapter(
+                  child: Row(
+                    children: [
+                      const TimeWork(
+                        date: AppStrings.start,
+                        isStartTime: true,
+                      ),
+                      SizedBox(
+                        width: width * 0.2,
+                      ),
+                      const TimeWork(
+                        date: AppStrings.end,
+                        isStartTime: false,
+                      ),
+                    ],
+                  ),
+                ),
+                SliverToBoxAdapter(
+                  child: SizedBox(
+                    height: height * 0.06,
+                  ),
+                ),
+                SliverToBoxAdapter(
+                  child: CustomBtn(
+                    text: AppStrings.saveprofile,
+                    onPressed: () {
+                      var formKey =
+                          BlocProvider.of<DoctorCubit>(context).formKey;
+                      if (formKey.currentState!.validate()) {
+                        BlocProvider.of<DoctorCubit>(context).registerDoctor();
+                      }
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );

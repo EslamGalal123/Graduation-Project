@@ -1,4 +1,5 @@
 import 'package:diiabest/core/Utils/App-String.dart';
+import 'package:diiabest/core/Utils/App-TextStyles.dart';
 import 'package:diiabest/core/Widgets/custom_btn.dart';
 import 'package:diiabest/core/Widgets/custom_text_field.dart';
 import 'package:diiabest/feature/doctor/cubit/doctor_cubit.dart';
@@ -8,8 +9,8 @@ import 'package:diiabest/feature/doctor/presentation/widgets/edit_profil_form.da
 import 'package:diiabest/feature/doctor/presentation/widgets/time_work.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-// ignore: must_be_immutable
 class EditProfileDoctor extends StatelessWidget {
   const EditProfileDoctor({super.key});
 
@@ -20,10 +21,8 @@ class EditProfileDoctor extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: Text(
-            AppStrings.editprofile
-            // Applocalizations.of(context)!.translatetext("editprofile")
-            ,
-            style: Theme.of(context).textTheme.titleMedium,
+            AppStrings.editprofile,
+            style: CustomTextStyles.lohit500style20,
           ),
         ),
         body: const EditDoctorProfileBody(),
@@ -41,8 +40,15 @@ class EditDoctorProfileBody extends StatelessWidget {
     TextEditingController phoneNumbe = TextEditingController();
     TextEditingController whatsApp = TextEditingController();
     TextEditingController facebook = TextEditingController();
-    final double width = MediaQuery.of(context).size.width;
-    final double height = MediaQuery.of(context).size.height;
+
+    ScreenUtil.init(
+      context,
+      designSize: const Size(375, 812), // تصميمك الأساسي للشاشة
+    );
+
+    final double width = 1.sw;
+    final double height = 1.sh;
+
     return Form(
       key: BlocProvider.of<DoctorCubit>(context).formKey,
       child: SafeArea(
@@ -63,90 +69,90 @@ class EditDoctorProfileBody extends StatelessWidget {
             }
           },
           child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: CustomScrollView(
-                  physics: const BouncingScrollPhysics(),
-                  slivers: [
-                    const SliverToBoxAdapter(child: EditProfileDoctorForm()),
-                    SliverToBoxAdapter(
-                        child: DoctorAdress(text: AppStrings.clinicaddress
-                            //  Applocalizations.of(context)!.translatetext("clinicaddress"),
-                            )),
-                    SliverToBoxAdapter(
-                        child: CustomTextFormField(
-                      mycontroller: citystreetblocknumber,
-                      labelText: AppStrings.citystreetblocknumber,
-                      //  Applocalizations.of(context)!.translatetext("citystreetblocknumber"),
-                      prefixIcon: const Icon(Icons.location_city_rounded),
-                    )),
-                    SliverToBoxAdapter(
-                        child: CustomTextFormField(
-                      mycontroller: phoneNumbe,
-                      labelText: AppStrings.phoneNumbe,
-                      //  Applocalizations.of(context)!.translatetext("phoneNumbe"),
-                      prefixIcon: const Icon(Icons.phone),
-                    )),
-                    SliverToBoxAdapter(
-                        child: CustomTextFormField(
-                      mycontroller: facebook,
-                      labelText: "Link Of Facebook",
-                      //  Applocalizations.of(context)!.translatetext("Link Of Facebook"),
-                      prefixIcon: const Icon(Icons.facebook),
-                    )),
-                    SliverToBoxAdapter(
-                        child: CustomTextFormField(
-                      mycontroller: whatsApp,
-                      labelText: "Link Of WhatsApp",
-                      //  Applocalizations.of(context)!.translatetext("Link Of WhatsApp"),
-                      prefixIcon: const Icon(Icons.chat),
-                    )),
-                    SliverToBoxAdapter(
-                        child: SizedBox(
-                      height: height * 0.01,
-                    )),
-                    SliverToBoxAdapter(
-                        child: SizedBox(
-                      height: height * 0.01,
-                    )),
-                    SliverToBoxAdapter(
-                      child: Row(
-                        children: [
-                          const TimeWork(
-                            date: AppStrings.start,
-                            isStartTime: true,
-                            //  Applocalizations.of(context)!.translatetext("start")
-                          ),
-                          SizedBox(
-                            width: width * 0.2,
-                          ),
-                          const TimeWork(
-                            date: AppStrings.end,
-                            isStartTime: false,
-                            // Applocalizations.of(context)!.translatetext("end")
-                          ),
-                        ],
+            padding: EdgeInsets.symmetric(horizontal: 13.w),
+            child: CustomScrollView(
+              physics: const BouncingScrollPhysics(),
+              slivers: [
+                const SliverToBoxAdapter(child: EditProfileDoctorForm()),
+                SliverToBoxAdapter(
+                  child: DoctorAdress(text: AppStrings.clinicaddress),
+                ),
+                SliverToBoxAdapter(
+                  child: CustomTextFormField(
+                    mycontroller: citystreetblocknumber,
+                    labelText: AppStrings.citystreetblocknumber,
+                    prefixIcon: const Icon(Icons.location_city_rounded),
+                  ),
+                ),
+                SliverToBoxAdapter(
+                  child: CustomTextFormField(
+                    mycontroller: phoneNumbe,
+                    labelText: AppStrings.phoneNumbe,
+                    prefixIcon: const Icon(Icons.phone),
+                  ),
+                ),
+                SliverToBoxAdapter(
+                  child: CustomTextFormField(
+                    mycontroller: facebook,
+                    labelText: "Link Of Facebook",
+                    prefixIcon: const Icon(Icons.facebook),
+                  ),
+                ),
+                SliverToBoxAdapter(
+                  child: CustomTextFormField(
+                    mycontroller: whatsApp,
+                    labelText: "Link Of WhatsApp",
+                    prefixIcon: const Icon(Icons.chat),
+                  ),
+                ),
+                SliverToBoxAdapter(
+                  child: SizedBox(
+                    height: height * 0.01,
+                  ),
+                ),
+                SliverToBoxAdapter(
+                  child: SizedBox(
+                    height: height * 0.01,
+                  ),
+                ),
+                SliverToBoxAdapter(
+                  child: Row(
+                    children: [
+                      const TimeWork(
+                        date: AppStrings.start,
+                        isStartTime: true,
                       ),
-                    ),
-                    SliverToBoxAdapter(
-                        child: SizedBox(
-                      height: height * 0.05,
-                    )),
-                    SliverToBoxAdapter(
-                        child: CustomBtn(
-                      text: AppStrings.saveprofile,
-                      // Applocalizations.of(context)!.translatetext("saveprofile"),
-                      onPressed: () {
-                        BlocProvider.of<DoctorCubit>(context).updateDoctor(
-                          clinicAddress: citystreetblocknumber.text,
-                          phoneNumber: phoneNumbe.text,
-                          whatsApp: whatsApp.text,
-                          facebook: facebook.text,
-                        );
-
-                        // customNavigate(context, "/ProfileDoctorView");
-                      },
-                    )),
-                  ])),
+                      SizedBox(
+                        width: width * 0.2,
+                      ),
+                      const TimeWork(
+                        date: AppStrings.end,
+                        isStartTime: false,
+                      ),
+                    ],
+                  ),
+                ),
+                SliverToBoxAdapter(
+                  child: SizedBox(
+                    height: height * 0.05,
+                  ),
+                ),
+                SliverToBoxAdapter(
+                  child: CustomBtn(
+                    text: AppStrings.saveprofile,
+                    onPressed: () {
+                      BlocProvider.of<DoctorCubit>(context).updateDoctor(
+                        clinicAddress: citystreetblocknumber.text,
+                        phoneNumber: phoneNumbe.text,
+                        whatsApp: whatsApp.text,
+                        facebook: facebook.text,
+                      );
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );

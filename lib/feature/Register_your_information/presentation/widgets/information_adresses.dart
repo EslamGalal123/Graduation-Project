@@ -1,3 +1,4 @@
+import 'package:diiabest/core/Utils/App-TextStyles.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
@@ -8,7 +9,7 @@ String? text;
   Widget build(BuildContext context) {
     return Text(
               text!,
-              style: Theme.of(context).textTheme.bodyMedium,
+              style: CustomTextStyles.lohit500style18,
               textAlign: TextAlign.left,
               maxLines: 1
             );

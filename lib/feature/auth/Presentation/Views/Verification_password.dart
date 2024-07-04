@@ -1,20 +1,23 @@
 import 'dart:async';
 
+import 'package:diiabest/core/Utils/App-TextStyles.dart';
+import 'package:diiabest/core/Utils/App-colors.dart';
 import 'package:diiabest/feature/auth/Presentation/Views/new_password.dart';
 import 'package:diiabest/feature/auth/auth_cubit/autch_state.dart';
 import 'package:diiabest/feature/auth/auth_cubit/auth_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class MyVerificationPage extends StatefulWidget {
-  const MyVerificationPage({super.key});
+  const MyVerificationPage({Key? key});
 
   @override
   _MyVerificationPageState createState() => _MyVerificationPageState();
 }
 
 class _MyVerificationPageState extends State<MyVerificationPage> {
-  String emailAddress = 'es*******@gmail.com';
+  String emailAddress = '********@gmail.com';
   String otpCode = '';
   int countdown = 120;
 
@@ -40,87 +43,82 @@ class _MyVerificationPageState extends State<MyVerificationPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
+        title: Text(
           "OTP Verification",
-          // Applocalizations.of(context)!.translatetext("OTP Verification")
+          style:  CustomTextStyles.lohit500style18,
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: EdgeInsets.all(16.w),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const SizedBox(
-              height: 40,
-            ),
-            const Text(
+            SizedBox(height: 40.h),
+            Text(
               "OTP Code Verification",
-              // Applocalizations.of(context)!.translatetext("OTP Code Verification"),
-              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
             ),
-            const SizedBox(height: 8.0),
-            Text('${"Enter code sent to"} $emailAddress'),
-            const SizedBox(height: 16.0),
+            SizedBox(height: 8.h),
+            Text('Enter code sent to $emailAddress',style: CustomTextStyles.lohit300style16.copyWith(fontSize: 14.sp,color: AppColors.black1),),
+            SizedBox(height: 16.h),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 for (int i = 0; i < 6; i++)
                   Container(
-                    width: 40.0,
-                    height: 40.0,
-                    margin: const EdgeInsets.symmetric(horizontal: 4.0),
+                    width: 40.w,
+                    height: 40.h,
+                    margin: EdgeInsets.symmetric(horizontal: 4.w),
                     child: TextFormField(
                       textAlign: TextAlign.center,
                       keyboardType: TextInputType.number,
-                      style: const TextStyle(fontSize: 16.0),
+                      style: TextStyle(fontSize: 16.sp),
                       decoration: const InputDecoration(
                         border: OutlineInputBorder(),
                       ),
                       readOnly: true,
                       controller: TextEditingController(
-                          text: i < otpCode.length ? otpCode[i] : ''),
+                        text: i < otpCode.length ? otpCode[i] : '',
+                      ),
                     ),
                   ),
               ],
             ),
-            const SizedBox(height: 16.0),
-            Text('${"Reset code in"}$countdown s'),
-            const SizedBox(height: 16.0),
+            SizedBox(height: 16.h),
+            Text('Reset code in $countdown s',style: CustomTextStyles.lohit300style16.copyWith(fontSize: 14.sp,color: AppColors.black1),),
+            SizedBox(height: 16.h),
             BlocListener<AuthCubit, AuthState>(
               listener: (context, state) {
                 if (state is VerifyEmailSuccess) {
                   Navigator.pushAndRemoveUntil(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => const CreateNewPassword()),
+                    MaterialPageRoute(builder: (context) => const CreateNewPassword()),
                     (route) => false,
                   );
                 }
                 if (state is VerifyEmailFailure) {
                   ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text(state.errorMessage)));
+                    SnackBar(content: Text(state.errorMessage)),
+                  );
                 }
               },
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFF246BFE),
-                    padding: const EdgeInsets.symmetric(horizontal: 40)),
+                  backgroundColor: const Color(0xFF246BFE),
+                  padding: EdgeInsets.symmetric(horizontal: 40.w),
+                ),
                 onPressed: () {
                   if (otpCode.isNotEmpty) {
-                    BlocProvider.of<AuthCubit>(context)
-                      .verifyEmailCode(code: otpCode);
+                    BlocProvider.of<AuthCubit>(context).verifyEmailCode(code: otpCode);
                   }
-                  // customNavigate(context, "/CreateNewPassword");
                 },
-                child: const Text(
-                  "Continue"
-                  // Applocalizations.of(context)!.translatetext("Continue")
-                  ,
-                  style: TextStyle(color: Colors.white, fontSize: 16),
+                child: Text(
+                  "Continue",
+                  style: TextStyle(color: Colors.white, fontSize: 16.sp),
                 ),
               ),
             ),
-            const SizedBox(height: 16.0),
+            SizedBox(height: 16.h),
             Expanded(
               child: buildNumericKeyboard(),
             ),
@@ -178,9 +176,9 @@ class _MyVerificationPageState extends State<MyVerificationPage> {
         }
       },
       child: Container(
-        width: 60.0,
-        height: 60.0,
-        margin: const EdgeInsets.all(8.0),
+        width: 60.w,
+        height: 60.h,
+        margin: EdgeInsets.all(8.w),
         decoration: BoxDecoration(
           color: Colors.grey[200],
           borderRadius: BorderRadius.circular(8.0),
@@ -188,7 +186,7 @@ class _MyVerificationPageState extends State<MyVerificationPage> {
         child: Center(
           child: Text(
             value,
-            style: const TextStyle(fontSize: 24.0),
+            style: TextStyle(fontSize: 24.sp),
           ),
         ),
       ),
@@ -201,9 +199,9 @@ class _MyVerificationPageState extends State<MyVerificationPage> {
         _onBackspacePressed();
       },
       child: Container(
-        width: 60.0,
-        height: 60.0,
-        margin: const EdgeInsets.all(8.0),
+        width: 60.w,
+        height: 60.h,
+        margin: EdgeInsets.all(8.w),
         decoration: BoxDecoration(
           color: Colors.yellow[700],
           borderRadius: BorderRadius.circular(8.0),
@@ -220,24 +218,17 @@ class _MyVerificationPageState extends State<MyVerificationPage> {
 
   Widget buildEmptyButton() {
     return Container(
-      width: 60.0,
-      height: 60.0,
-      margin: const EdgeInsets.all(8.0),
-      decoration: const BoxDecoration(
+      width: 60.w,
+      height: 60.h,
+      margin: EdgeInsets.all(8.w),
+      decoration: BoxDecoration(
         color: Colors.transparent,
       ),
     );
   }
 
-  void _onOtpChanged(int index, String value) {
-    setState(() {
-      otpCode =
-          otpCode.padLeft(index, '0') + value + otpCode.substring(index + 1);
-    });
-  }
-
   void _onKeyboardButtonPressed(String value) {
-    if (otpCode.length < 7) {
+    if (otpCode.length < 6) {
       setState(() {
         otpCode += value;
       });

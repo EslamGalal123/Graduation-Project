@@ -7,6 +7,7 @@ import 'package:diiabest/feature/auth/auth_cubit/autch_state.dart';
 import 'package:diiabest/feature/auth/auth_cubit/auth_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../../../core/Utils/App-Assets.dart';
 
 // ignore: must_be_immutable
@@ -33,56 +34,42 @@ class CustomForgetPasswordForm extends StatelessWidget {
         }
       },
       child: Form(
-        key:formKey,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            SizedBox(height: height * 0.01),
-            Expanded(
-              child: Text(
+        key: formKey,
+        child: SingleChildScrollView(
+          padding: EdgeInsets.all(8.w),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              SizedBox(height: 20.h),
+              Text(
                 "Reset your password with email",
-                // Applocalizations.of(context)!.translatetext("Reset your password with email"),
                 textAlign: TextAlign.center,
                 style: CustomTextStyles.lohit500style18,
               ),
-            ),
-            SizedBox(height: height * 0.01),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Image.asset(
-                  Assets.imagesImageNewpassword2,
-                  height: height * 0.33,
-                  width: width * 0.75,
-                ),
-                SizedBox(height: height * 0.03),
-                CustomTextFormField(
-                    mycontroller: emailAddress,
-                    labelText: AppStrings.emailAddress),
-              ],
-            ),
-            SizedBox(height: height * 0.02),
-            const Spacer(
-              flex: 4,
-            ),
-            Expanded(
-              child: Align(
-                alignment: Alignment.bottomCenter,
-                child: CustomBtn(
-                  text: "Continue",
-                  // Applocalizations.of(context)!.translatetext("Continue"),
-                  onPressed: () {
-                    if (formKey.currentState!.validate()) {
-                       BlocProvider.of<AuthCubit>(context)
-                        .forgetPassword(email: emailAddress.text);
-                    }
-                    // customNavigate(context, "/MyVerificationPage");
-                  },
-                ),
+              SizedBox(height: 20.h),
+              Image.asset(
+                Assets.imagesImageNewpassword2,
+                height: height * 0.33,
+                width: width * 0.75,
               ),
-            ),
-            SizedBox(height: height * 0.02),
-          ],
+              SizedBox(height: 30.h),
+              CustomTextFormField(
+                mycontroller: emailAddress,
+                labelText: AppStrings.emailAddress,
+              ),
+              SizedBox(height: 20.h),
+              CustomBtn(
+                text: "Continue",
+                onPressed: () {
+                  if (formKey.currentState!.validate()) {
+                    BlocProvider.of<AuthCubit>(context)
+                        .forgetPassword(email: emailAddress.text);
+                  }
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );
