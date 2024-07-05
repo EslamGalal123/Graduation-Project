@@ -1,3 +1,5 @@
+import 'package:diiabest/core/Utils/App-TextStyles.dart';
+import 'package:diiabest/core/Utils/App-colors.dart';
 import 'package:diiabest/feature/auth/auth_cubit/auth_cubit.dart';
 import 'package:diiabest/models/patiant_model.dart';
 import 'package:flutter/material.dart';
@@ -17,12 +19,12 @@ class CustomProfileForm extends StatelessWidget {
               "Weight :",
               
               // "${Applocalizations.of(context)!.translatetext("weight")}"  "${"   85"}",
-              style:Theme.of(context).textTheme.bodyMedium
+              style:CustomTextStyles.lohit500style18.copyWith(color: AppColors.black1)
             ),
              Text(
               "  ${user.weight}",
               // "${Applocalizations.of(context)!.translatetext("weight")}"  "${"   85"}",
-              style: Theme.of(context).textTheme.bodySmall
+              style: CustomTextStyles.lohit400style18.copyWith(color: AppColors.black2)
             ),
           ],
         ),
@@ -35,12 +37,12 @@ class CustomProfileForm extends StatelessWidget {
               "Height :"
              ,
               // "${Applocalizations.of(context)!.translatetext("height")}"  "${"   185"}",
-              style: Theme.of(context).textTheme.bodyMedium
+              style: CustomTextStyles.lohit500style18.copyWith(color: AppColors.black1)
             ),
              Text(
               "  ${user.height}",
               // "${Applocalizations.of(context)!.translatetext("height")}"  "${"   185"}",
-              style:Theme.of(context).textTheme.bodySmall
+              style:CustomTextStyles.lohit400style18.copyWith(color: AppColors.black2)
             ),
           ],
         ),
@@ -53,12 +55,12 @@ class CustomProfileForm extends StatelessWidget {
                   "Gender :",
                   
                   // "${Applocalizations.of(context)!.translatetext("gender")}"  "${"    male"}",
-                  style:Theme.of(context).textTheme.bodyMedium
+                  style:CustomTextStyles.lohit500style18.copyWith(color: AppColors.black1)
                 ),
                 Text(
                   "  ${BlocProvider.of<AuthCubit>(context).gender}",
                   // "${Applocalizations.of(context)!.translatetext("gender")}"  "${"    male"}",
-                  style: Theme.of(context).textTheme.bodySmall
+                  style: CustomTextStyles.lohit400style18.copyWith(color: AppColors.black2)
                 ),
               ],
             ),
@@ -70,12 +72,12 @@ class CustomProfileForm extends StatelessWidget {
             Text(
               "Marital Status :",
               // "${ Applocalizations.of(context)!.translatetext("maritalStatus")}"  "${"    single"}",
-              style: Theme.of(context).textTheme.bodyMedium
+              style:CustomTextStyles.lohit500style18.copyWith(color: AppColors.black1)
             ),
             Text(
               "  ${user.status}",
               // "${ Applocalizations.of(context)!.translatetext("maritalStatus")}"  "${"    single"}",
-              style: Theme.of(context).textTheme.bodySmall
+              style:CustomTextStyles.lohit400style18.copyWith(color: AppColors.black2)
             ),
           ],
         ),
@@ -88,11 +90,11 @@ class CustomProfileForm extends StatelessWidget {
               "Age :",
               
               // "${Applocalizations.of(context)!.translatetext("age")}"  "${"   22"}",
-              style: Theme.of(context).textTheme.bodyMedium
+              style: CustomTextStyles.lohit500style18.copyWith(color: AppColors.black1)
             ), Text(
               "  ${user.age}",
               // "${Applocalizations.of(context)!.translatetext("age")}"  "${"   22"}",
-              style:Theme.of(context).textTheme.bodySmall
+              style:CustomTextStyles.lohit400style18.copyWith(color: AppColors.black2)
             ),
 
           ],
@@ -106,12 +108,12 @@ class CustomProfileForm extends StatelessWidget {
               "Blood Suger Type : ",
              
               // "${Applocalizations.of(context)!.translatetext("Blood Suger Type :      ")}"  "${"type1"}",
-              style: Theme.of(context).textTheme.bodyMedium
+              style: CustomTextStyles.lohit500style18.copyWith(color: AppColors.black1)
             ),
              Text(
               "  type1",
               // "${Applocalizations.of(context)!.translatetext("Blood Suger Type :      ")}"  "${"type1"}",
-              style: Theme.of(context).textTheme.bodySmall
+              style: CustomTextStyles.lohit400style18.copyWith(color: AppColors.black2)
             ),
           ],
         ),

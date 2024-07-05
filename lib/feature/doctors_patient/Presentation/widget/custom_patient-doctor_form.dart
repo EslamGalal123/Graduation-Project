@@ -5,6 +5,7 @@ import 'package:diiabest/feature/doctors_patient/Presentation/widget/card_doctor
 import 'package:diiabest/feature/doctors_patient/cubit/doctor_patient_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 class CustomPatientDoctorForm extends StatelessWidget {
   const CustomPatientDoctorForm({super.key});
 
@@ -31,6 +32,8 @@ class CustomPatientDoctorForm extends StatelessWidget {
                 BlocProvider.of<DoctorPatientCubit>(context).searchController,
             decoration: InputDecoration(
               hintText: "Search",
+              hintStyle:CustomTextStyles.lohit400style18 ,
+              
               // Applocalizations.of(context)!.translatetext("Search"),
               prefixIcon: const Icon(Icons.search),
               border: OutlineInputBorder(
@@ -44,8 +47,8 @@ class CustomPatientDoctorForm extends StatelessWidget {
             },
           ),
         ),
-        const SizedBox(
-          height: 5,
+       SizedBox(
+          height: 5.h,
         ),
         BlocBuilder<DoctorPatientCubit, DoctorPatientState>(
           builder: (context, state) {

@@ -5,6 +5,9 @@ import 'package:diiabest/core/Utils/App-TextStyles.dart';
 import 'package:diiabest/core/Utils/App-colors.dart';
 import 'package:diiabest/core/Widgets/custom_btn.dart';
 import 'package:diiabest/feature/reminder_medicins/data/add_task_component.dart';
+import 'package:diiabest/feature/reminder_medicins/data/function/local_notification_service.dart';
+import 'package:diiabest/feature/reminder_medicins/presentation/cubit/calender_cubit.dart';
+import 'package:diiabest/feature/reminder_medicins/presentation/cubit/time_cubit.dart';
 import 'package:diiabest/feature/reminder_medicins/presentation/view/reminder_medicin.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -309,3 +312,165 @@ int currentindex=0;
     );
   }
 }
+
+// import 'package:flutter/material.dart';
+// import 'package:flutter_bloc/flutter_bloc.dart';
+// class TimeScreen extends StatelessWidget {
+//   TimeScreen({Key? key}) : super(key: key);
+
+//   TextEditingController nameController = TextEditingController();
+//   TextEditingController descriptionController = TextEditingController();
+
+//   @override
+//   Widget build(BuildContext context) {
+//     double widthScreen = MediaQuery.of(context).size.width;
+//     double heightScreen = MediaQuery.of(context).size.height;
+//     return Scaffold(
+//       appBar: AppBar(
+//         leading: IconButton(
+//           icon: Icon(Icons.arrow_back_ios),
+//           onPressed: () {},
+//         ),
+//         title: Text('Add a Reminder'),
+//         centerTitle: true,
+//       ),
+//       body: SingleChildScrollView(
+//         child: Padding(
+//           padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+//           child: Column(
+//             crossAxisAlignment: CrossAxisAlignment.start,
+//             children: [
+//               Text(
+//                 'Title',
+//                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+//               ),
+//               TextFormField(
+//                 controller: nameController,
+//                 decoration: InputDecoration(hintText: "Name"),
+//               ),
+//               Padding(
+//                 padding: const EdgeInsets.only(top: 30),
+//                 child: Text(
+//                   'Reminder',
+//                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+//                 ),
+//               ),
+//               TextFormField(
+//                 controller: descriptionController,
+//                 decoration: InputDecoration(hintText: "Description"),
+//               ),
+//               Padding(
+//                 padding: const EdgeInsets.only(top: 30),
+//                 child: Text(
+//                   'Date',
+//                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
+//                 ),
+//               ),
+//               BlocBuilder<CalenderCubit, CalenderState>(
+//                 builder: (context, stateOfCalender) {
+//                   return BlocBuilder<TimeCubit, TimeState>(
+//                     builder: (context, stateOfTime) {
+//                       return Column(
+//                         crossAxisAlignment: CrossAxisAlignment.start,
+//                         children: [
+//                           TextFormField(
+//                             readOnly: true,
+//                             decoration: InputDecoration(
+//                               hintText: (stateOfCalender
+//                                       is SuccessShowCalenderPicker)
+//                                   ? "${stateOfCalender.date}"
+//                                   : "" /*'${context.read<CalenderCubit>().date}'*/,
+//                               suffixIcon: IconButton(
+//                                 icon: Icon(
+//                                   Icons.calendar_month_sharp,
+//                                 ),
+//                                 onPressed: () {
+//                                   context
+//                                       .read<CalenderCubit>()
+//                                       .showCalenderPicker(context: context);
+//                                 },
+//                               ),
+//                             ),
+//                           ),
+//                           Padding(
+//                             padding: const EdgeInsets.only(top: 30),
+//                             child: Text(
+//                               'Start',
+//                               style: TextStyle(
+//                                   fontSize: 18, fontWeight: FontWeight.w500),
+//                             ),
+//                           ),
+//                           SizedBox(
+//                             width: widthScreen * 0.5,
+//                             child: TextFormField(
+//                               readOnly: true,
+//                               decoration: InputDecoration(
+//                                 hintText: (stateOfTime
+//                                         is SuccessShowTimerPicker)
+//                                     ? "${stateOfTime.time}"
+//                                     : "" /*"${context.read<TimeCubit>().timeOfDay.format(context)}"*/,
+//                                 suffixIcon: IconButton(
+//                                   icon: Icon(
+//                                     Icons.timer_sharp,
+//                                   ),
+//                                   onPressed: () {
+//                                     context
+//                                         .read<TimeCubit>()
+//                                         .showTimerPicker(context: context);
+//                                   },
+//                                 ),
+//                               ),
+//                             ),
+//                           ),
+//                           Padding(
+//                             padding: const EdgeInsets.only(top: 80),
+//                             child: SizedBox(
+//                               width: widthScreen,
+//                               child: ElevatedButton(
+//                                 style: ElevatedButton.styleFrom(
+//                                   backgroundColor: Colors.blue,
+//                                 ),
+//                                 onPressed: (stateOfCalender
+//                                             is SuccessShowCalenderPicker &&
+//                                         stateOfTime is SuccessShowTimerPicker)
+//                                     ? () {
+//                                         print(nameController.text);
+//                                         print(descriptionController.text);
+//                                         LocalNotificationService
+//                                             .showScheduleNotification(
+//                                           title: nameController.text,
+//                                           reminder: descriptionController.text,
+//                                           year:
+//                                               stateOfCalender.notificationYear!,
+//                                           month: stateOfCalender
+//                                               .notificationMonth!,
+//                                           day: stateOfCalender.notificationDay!,
+//                                           hour: stateOfTime.notificationHour!,
+//                                           minute:
+//                                               stateOfTime.notificationMinute!,
+//                                         );
+//                                       }
+//                                     : null,
+//                                 child: Text(
+//                                   "Create",
+//                                   style: TextStyle(
+//                                     color: Colors.white,
+//                                     fontSize: 18,
+//                                   ),
+//                                 ),
+//                               ),
+//                             ),
+//                           ),
+//                         ],
+//                       );
+//                     },
+//                   );
+//                 },
+//               ),
+//             ],
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }

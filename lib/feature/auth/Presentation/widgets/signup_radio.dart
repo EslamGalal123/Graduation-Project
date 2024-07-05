@@ -4,7 +4,6 @@ import 'package:diiabest/core/Widgets/custom_btn.dart';
 import 'package:diiabest/feature/auth/auth_cubit/auth_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SignUpRadio extends StatefulWidget {
   const SignUpRadio({Key? key}) : super(key: key);

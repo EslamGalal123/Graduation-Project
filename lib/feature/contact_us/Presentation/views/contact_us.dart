@@ -173,18 +173,23 @@ class ContactUsView extends StatelessWidget {
       splitScreenMode: true,
       builder: (context, child) {
         return Scaffold(
-          appBar: AppBar(
-            elevation: 0,
-            title: Text(
-              "Contact Us",
-              style:CustomTextStyles.lohit500style22,
-            ),
-            backgroundColor: Colors.white,
-          ),
           body: ListView(
             children: [
+                 SizedBox(height: 10.h,),
+              Row(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                                'Contact Us',
+                                style: CustomTextStyles.lohit500style20,
+                                textAlign: TextAlign.left,
+                              ),
+                  ),
+                ],
+              ),
               SizedBox(
-                height: 50.h,  // استخدم h للوحدات الرأسية
+                height: 20.h,  // استخدم h للوحدات الرأسية
               ),
               Center(
                 child: Image.asset(

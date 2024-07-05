@@ -207,7 +207,7 @@ class _SkinViewState extends State<SkinView> {
                   child: Column(
                     children: [
                       const Text(
-                        'Predicted Class:',
+                        'Diagnosis:',
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,

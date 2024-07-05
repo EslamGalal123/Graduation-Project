@@ -1,4 +1,5 @@
 import 'package:diiabest/core/Utils/App-Assets.dart';
+import 'package:diiabest/core/Utils/App-TextStyles.dart';
 import 'package:diiabest/core/Utils/App-colors.dart';
 import 'package:diiabest/feature/auth/Presentation/widgets/custom_social_icons.dart';
 import 'package:diiabest/models/doctor_model.dart';
@@ -39,14 +40,14 @@ class DescriptionsForm extends StatelessWidget {
             Text(
               "Name: ",
               //  Applocalizations.of(context)!.translatetext("Name  "),
-              style: Theme.of(context).textTheme.bodyMedium,
+              style: CustomTextStyles.lohit500style20,
             ),
             SizedBox(
               width: width * 0.03,
             ),
             Text(
               doctor.fullName,
-              style: Theme.of(context).textTheme.bodySmall,
+              style: CustomTextStyles.lohit400style20.copyWith(color: AppColors.black2),
             )
           ],
         ),
@@ -58,14 +59,14 @@ class DescriptionsForm extends StatelessWidget {
             Text(
               "Specialization: ",
               // Applocalizations.of(context)!.translatetext("specialization"),
-              style: Theme.of(context).textTheme.bodyMedium,
+              style: CustomTextStyles.lohit500style20,
             ),
             SizedBox(
               width: width * 0.03,
             ),
             Text(
               doctor.specialization,
-              style: Theme.of(context).textTheme.bodySmall,
+              style: CustomTextStyles.lohit400style20.copyWith(color: AppColors.black2),
             )
           ],
         ),
@@ -77,14 +78,14 @@ class DescriptionsForm extends StatelessWidget {
             Text(
               "Start Date: ",
               // Applocalizations.of(context)!.translatetext("specialization"),
-              style: Theme.of(context).textTheme.bodyMedium,
+              style: CustomTextStyles.lohit500style20,
             ),
             SizedBox(
               width: width * 0.03,
             ),
             Text(
               doctor.startTime,
-              style: Theme.of(context).textTheme.bodySmall,
+              style: CustomTextStyles.lohit400style20.copyWith(color: AppColors.black2),
             )
           ],
         ),
@@ -96,14 +97,14 @@ class DescriptionsForm extends StatelessWidget {
             Text(
               "End Data: ",
               // Applocalizations.of(context)!.translatetext("specialization"),
-              style: Theme.of(context).textTheme.bodyMedium,
+              style: CustomTextStyles.lohit500style20,
             ),
             SizedBox(
               width: width * 0.03,
             ),
             Text(
               doctor.endTime,
-              style: Theme.of(context).textTheme.bodySmall,
+              style: CustomTextStyles.lohit400style20.copyWith(color: AppColors.black2),
             )
           ],
         ),
@@ -115,14 +116,14 @@ class DescriptionsForm extends StatelessWidget {
             Text(
               "Phone Number: ",
               // Applocalizations.of(context)!.translatetext("phoneNumbe"),
-              style: Theme.of(context).textTheme.bodyMedium,
+              style: CustomTextStyles.lohit500style20,
             ),
             SizedBox(
               width: width * 0.03,
             ),
             Text(
               doctor.phoneNumber,
-              style: Theme.of(context).textTheme.bodySmall,
+              style: CustomTextStyles.lohit400style20.copyWith(color: AppColors.black2),
             )
           ],
         ),
@@ -134,15 +135,15 @@ class DescriptionsForm extends StatelessWidget {
             Text(
               "address: ",
 //  Applocalizations.of(context)!.translatetext("clinicaddress")        ,
-              style: Theme.of(context).textTheme.bodyMedium,
+              style: CustomTextStyles.lohit500style20,
             ),
             SizedBox(
               width: width * 0.03,
             ),
             Text(
               doctor.clinicAddress,
-              style: Theme.of(context).textTheme.bodySmall,
-              maxLines: 1,
+              style: CustomTextStyles.lohit400style20.copyWith(color: AppColors.black2,),
+              maxLines: 2,
             )
           ],
         ),
@@ -155,7 +156,7 @@ class DescriptionsForm extends StatelessWidget {
             Text(
               "contact Now",
               //  Applocalizations.of(context)!.translatetext("contactnow"),
-              style: Theme.of(context).textTheme.bodyMedium,
+              style: CustomTextStyles.lohit500style20,
             ),
           ],
         ),

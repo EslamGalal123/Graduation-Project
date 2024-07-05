@@ -14,7 +14,7 @@ class ReminderMedicinsView extends StatelessWidget {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => const ReminderDetailsView()));
+                    builder: (context) =>  ReminderDetailsView()));
           },
           backgroundColor: AppColors.primarycolor,
           child: const Icon(Icons.add),

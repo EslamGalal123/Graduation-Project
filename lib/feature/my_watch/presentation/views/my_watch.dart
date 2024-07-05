@@ -743,94 +743,105 @@ class _BluetoothAppState extends State<BluetoothApp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Your Device',
-          style: CustomTextStyles.lohit500style20,
-        ),
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Container(
-              color: const Color(0xff68c2ec),
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                children: <Widget>[
-                  ElevatedButton(
-                    onPressed: () async {
-                      final BluetoothDevice? selectedDevice =
-                          await Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => SelectDevicePage(),
-                        ),
-                      );
-                      if (selectedDevice != null) {
-                        setState(() {
-                          _device = selectedDevice;
-                        });
-                      }
-                    },
-                    child: Text(
-                      'Select Device',
-                      style: CustomTextStyles.lohit400style18,
-                    ),
-                  ),
-                   SizedBox(height: 20.h),
-                  SlideAction(
-                    innerColor: Colors.blue,
-                    outerColor: const Color(0xff7d8182)!,
-                    sliderButtonIcon: const Icon(Icons.bluetooth),
-                    onSubmit: () async {
-                      if (_device != null) {
-                        _startConnection();
-                      }
-                    },
-                    text: 'Connect to Device',
-                    textStyle: CustomTextStyles.lohit400style18
-                        .copyWith(color: Colors.white),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 20),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+      
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              SizedBox(height: 10.h,),
+              Row(
                 children: [
-                  Row(
-                    children: [
-                      Expanded(
-                        child: _buildDataContainer("Dia Best Read:", _value1),
-                      ),
-                      const SizedBox(width: 17),
-                      Expanded(
-                        child: _buildDataContainer("RBS :", _value1),
-                      ),
-                    ],
-                  ),
-                   SizedBox(height: 13.h),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: _buildDataContainer("Pulse Rate :", _value2),
-                      ),
-                      const SizedBox(width: 10),
-                      Expanded(
-                        child: _buildDataContainer("Heart Beats:", _value2),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 19.h),
-                  _buildDataContainer(
-                    "Classification Sugar :",
-                    _getClassificationSugar(_value1),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                                'Your Device',
+                                style: CustomTextStyles.lohit500style20,
+                                textAlign: TextAlign.left,
+                              ),
                   ),
                 ],
               ),
-            ),
-          ],
+              SizedBox(height: 10.h,),
+              Container(
+                color: const Color(0xff68c2ec),
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  children: <Widget>[
+                    ElevatedButton(
+                      onPressed: () async {
+                        final BluetoothDevice? selectedDevice =
+                            await Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => SelectDevicePage(),
+                          ),
+                        );
+                        if (selectedDevice != null) {
+                          setState(() {
+                            _device = selectedDevice;
+                          });
+                        }
+                      },
+                      child: Text(
+                        'Select Device',
+                        style: CustomTextStyles.lohit400style18,
+                      ),
+                    ),
+                     SizedBox(height: 20.h),
+                    SlideAction(
+                      innerColor: Colors.blue,
+                      outerColor: const Color(0xff7d8182)!,
+                      sliderButtonIcon: const Icon(Icons.bluetooth),
+                      onSubmit: () async {
+                        if (_device != null) {
+                          _startConnection();
+                        }
+                      },
+                      text: 'Connect to Device',
+                      textStyle: CustomTextStyles.lohit400style18
+                          .copyWith(color: Colors.white),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 20),
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Expanded(
+                          child: _buildDataContainer("Dia Best Read:", _value1),
+                        ),
+                        const SizedBox(width: 17),
+                        Expanded(
+                          child: _buildDataContainer("RBS :", _value1),
+                        ),
+                      ],
+                    ),
+                     SizedBox(height: 13.h),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: _buildDataContainer("Pulse Rate :", _value2),
+                        ),
+                        const SizedBox(width: 10),
+                        Expanded(
+                          child: _buildDataContainer("Heart Beats:", _value2),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 19.h),
+                    _buildDataContainer(
+                      "Classification Sugar :",
+                      _getClassificationSugar(_value1),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

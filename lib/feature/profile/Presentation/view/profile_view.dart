@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:diiabest/core/Utils/App-Assets.dart';
 import 'package:diiabest/core/Utils/App-String.dart';
+import 'package:diiabest/core/Utils/App-TextStyles.dart';
 import 'package:diiabest/core/Widgets/custom_btn_profile.dart';
 import 'package:diiabest/feature/auth/Presentation/Views/sign_in.dart';
 import 'package:diiabest/feature/profile/Presentation/view/edit_profile_view.dart';
@@ -8,6 +9,7 @@ import 'package:diiabest/feature/profile/Presentation/widget/custom_profile_form
 import 'package:diiabest/feature/profile/cubit/profile_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 class ProfileView extends StatelessWidget {
   const ProfileView({super.key});
 
@@ -18,7 +20,7 @@ class ProfileView extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           leading: const SizedBox(),
-          title: const Text(AppStrings.patient),
+          title:  Text(AppStrings.patient,style:CustomTextStyles.lohit500style20 ,),
           centerTitle: true,
           actions: const [
             SingOutButton(),
@@ -76,8 +78,8 @@ class ProfileBody extends StatelessWidget {
                     }
                   },
                   child: Column(children: [
-                    const SizedBox(
-                      height: 30,
+                     SizedBox(
+                      height: 30.h,
                     ),
                     CachedNetworkImage(
                       imageUrl: '',
@@ -89,21 +91,21 @@ class ProfileBody extends StatelessWidget {
                         width: MediaQuery.of(context).size.width * 0.35,
                       ),
                     ),
-                    const SizedBox(
-                      height: 15,
+                     SizedBox(
+                      height: 15.h,
                     ),
                     Text(state.user.name,
-                        style: Theme.of(context).textTheme.bodyMedium),
+                        style: CustomTextStyles.lohit500style20),
                   ]),
                 ),
-                const SizedBox(
-                  height: 20,
+              SizedBox(
+                  height: 20.h,
                 ),
                 CustomProfileForm(
                   user: state.user,
                 ),
-                const SizedBox(
-                  height: 35,
+                 SizedBox(
+                  height: 35.h,
                 ),
                 CustomBtnProfile(
                   text: AppStrings.editprofile,

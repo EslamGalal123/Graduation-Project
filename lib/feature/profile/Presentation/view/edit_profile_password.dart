@@ -1,7 +1,10 @@
 import 'package:diiabest/core/Utils/App-String.dart';
+import 'package:diiabest/core/Utils/App-TextStyles.dart';
+import 'package:diiabest/core/Utils/App-colors.dart';
 import 'package:diiabest/feature/profile/cubit/profile_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ChangePasswordView extends StatelessWidget {
   const ChangePasswordView({super.key});
@@ -12,7 +15,7 @@ class ChangePasswordView extends StatelessWidget {
       create: (context) => ProfileCubit(),
       child: Scaffold(
         appBar: AppBar(
-          title: const Text(AppStrings.changepassword),
+          title:  Text(AppStrings.changepassword,style:  CustomTextStyles.lohit500style20),
           elevation: 0,
         ),
         body: const ChangePasswordBody(),
@@ -67,19 +70,25 @@ class ChangePasswordBody extends StatelessWidget {
             ),
             Center(
               child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+          backgroundColor:  AppColors.primarycolor,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(25.r),
+          ),),
                 onPressed: () {
                   BlocProvider.of<ProfileCubit>(context).changePassword(
                     confirmNewPassword: confirmPasswordController.text,
                     newPassword: newPasswordController.text,
                     password: currentPasswordController.text,
                   );
+                  
                   // Handle change password logic
                 },
-                child: const Text(
+                child: Text(
                   AppStrings.changepassword,
                   // Applocalizations.of(context)!.translatetext("changepassword"),
 
-                  style: TextStyle(fontWeight: FontWeight.w400, fontSize: 18),
+                  style: CustomTextStyles.lohit500style18.copyWith(color: Colors.white),
                 ),
               ),
             )
@@ -107,6 +116,7 @@ class CustomFormField extends StatelessWidget {
         controller: controller,
         decoration: InputDecoration(
           labelText: label,
+          labelStyle: CustomTextStyles.lohit400style18,
           border: const OutlineInputBorder(),
         ),
       ),

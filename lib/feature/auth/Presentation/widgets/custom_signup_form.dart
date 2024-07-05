@@ -16,7 +16,6 @@ class CustomSignUpForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final double height = MediaQuery.of(context).size.height;
     return BlocListener<AuthCubit, AuthState>(
       listener: (context, state) {
         if (state is SignUpFailure) {

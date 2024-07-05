@@ -207,7 +207,7 @@ class _FootViewState extends State<FootView> {
                   child: Column(
                     children: [
                       const Text(
-                        'Predicted Class:',
+                        'Diagnosis:',
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,

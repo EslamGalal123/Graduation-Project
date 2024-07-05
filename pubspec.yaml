@@ -28,7 +28,7 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
-  bloc: ^8.1.4
+  bloc:
   cached_network_image: ^3.3.1
   cupertino_icons: ^1.0.2
   dartz: ^0.10.1
@@ -38,11 +38,11 @@ dependencies:
   fl_chart:
   flutter:
     sdk: flutter
-  flutter_bloc: ^8.1.3
+  flutter_bloc:
   flutter_bluetooth_serial:
-  flutter_screenutil: 
+  flutter_screenutil:
   
-  flutter_local_notifications: null
+  flutter_local_notifications:
   flutter_localizations:
     sdk: flutter
   get_it: ^7.6.7
@@ -56,6 +56,7 @@ dependencies:
   smooth_page_indicator: ^1.1.0
   url_launcher: ^6.2.6
   slide_to_act:
+  timezone: ^0.9.4
   
 
 dev_dependencies:

@@ -98,6 +98,7 @@ import 'package:diiabest/feature/my_watch/presentation/views/my_watch.dart';
 import 'package:diiabest/feature/organs/presentation/widget/eyes_view.dart';
 import 'package:diiabest/feature/organs/presentation/widget/heart_form.dart';
 import 'package:diiabest/feature/organs/presentation/widget/heart_view.dart';
+import 'package:diiabest/feature/reminder_medicins/presentation/view/reminder_medicin.dart';
 import 'package:diiabest/feature/reminder_medicins/presentation/widget/notification.dart';
 import 'package:diiabest/simple_observer.dart';
 import 'package:flutter/material.dart';
